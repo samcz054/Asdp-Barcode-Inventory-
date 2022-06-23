@@ -17,6 +17,7 @@ class CreateStocksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('barang_id');
             $table->bigInteger('kode_barang');
+            $table->date('tanggal_ditambahkan');
             $table->foreign('barang_id')->references('id')->on('gudangs')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

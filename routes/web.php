@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Stock Routes
     Route::get('/gudang/{id}/stock',[App\Http\Controllers\Admin\StockController::class, 'index'])->name('stock.index');
     Route::get('/stock/{id}',[App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
-    Route::get('/stock/show/{id}/',[App\Http\Controllers\Admin\StockController::class, 'show'])->name('stock.show');
+    Route::get('/stock/{id}/cetak',[App\Http\Controllers\Admin\StockController::class, 'show'])->name('stock.show');
+    Route::post('/stock/store', [App\Http\Controllers\Admin\StockController::class, 'store'])->name('stock.store');
+    Route::delete('/stock/destroy/{id}', [App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
 
 });

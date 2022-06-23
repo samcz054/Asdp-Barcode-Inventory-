@@ -10,8 +10,10 @@ class Stock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_barang',
+        'barang_id',
         'kode_barang',
+        'tanggal_ditambahkan'
+        
     ];
 
     public function barang(){

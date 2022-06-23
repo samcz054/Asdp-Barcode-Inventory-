@@ -17,15 +17,20 @@
                 @endif
                 
 
-                <h4 class="m-0 font-weight-bold text-primary">Stok </h4>
+                <h4 class="m-0 font-weight-bold text-primary">Stok</h4>
 
                 <div class="col-md-12 text-right">
-                    <a href="" class="btn btn-primary btn-icon-split">
-                        <span class="icon text-white-600">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="text">Tambah</span>
-                    </a>
+                    <form id="tambahStok" method="POST" action="{{route('stock.store')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="number" name="barang_id" value="{{$dataBarang->id}}" style="display: none">
+                        <button type="submit" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-600">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Tambah</span>
+                        </button>
+                    </form>
+                            
                 </div>
             </div>
             <div class="card-body">
@@ -46,7 +51,7 @@
                                 <td>{{++$i}}</td>
                                 <td>{{$row->barang->nama_barang}}</td>
                                 <td>{{$row->kode_barang}}</td>
-                                <td></td>
+                                <td>{{$row->tanggal_ditambahkan}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">
                                         <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
@@ -72,7 +77,7 @@
                             @endforeach
 
                             {{-- Modals cetak barcode --}}
-                            <div class="modal fade" id="cetakBarcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal fade-scale" id="cetakBarcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -110,7 +115,7 @@
                 const id = $(this).attr('data-id');
                 $.ajax({
                     type: "GET",
-                    url: '/admin/stock/show/'+id,
+                    url: '/admin/stock/'+id+'/cetak/',
                     dataType: "JSON",
                     success: function(data) {
                         console.log(data.kode_barang);

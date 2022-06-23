@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Gudang;
 use App\Stock;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -18,8 +19,9 @@ class GudangController extends Controller
      */
     public function index()
     {
+        $jumlahStock = Stock::all();
         $dataBarang = Gudang::all();
-        return view('admin.gudang.index',compact('dataBarang'));
+        return view('admin.gudang.index',compact('dataBarang','jumlahStock'));
     }
 
     /**
@@ -67,6 +69,7 @@ class GudangController extends Controller
             $stokBaru = new Stock;
             $stokBaru->barang_id = $dataBarang->id;
             $stokBaru->kode_barang = $generateBarcode;
+            $stokBaru->tanggal_ditambahkan = Carbon::now();
             $stokBaru->save();
         }
 

@@ -41,7 +41,7 @@
                                     <img src="{{asset('fotobarang/'.$row->gambar)}}" width="50px" height="50px" alt="gambar">
                                 </td>
                                 <td>{{$row->nama_barang}}</td>
-                                <td>17</td>
+                                <td>{{$jumlahStock->where('barang_id',$row->id)->count()}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">
                                         <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
