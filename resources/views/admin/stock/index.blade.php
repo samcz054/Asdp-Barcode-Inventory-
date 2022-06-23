@@ -17,7 +17,7 @@
                 @endif
                 
 
-                <h4 class="m-0 font-weight-bold text-primary">Stok</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Stok {{$dataBarang->nama_barang}}</h4>
 
                 <div class="col-md-12 text-right">
                     <form id="tambahStok" method="POST" action="{{route('stock.store')}}" enctype="multipart/form-data">
