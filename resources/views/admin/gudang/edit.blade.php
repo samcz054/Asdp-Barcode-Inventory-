@@ -49,7 +49,7 @@
                                 {{-- end --}}
                             </div>
                             <div class="col-md-12 mt-3">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Simpan
                                 </button>
                             </div>

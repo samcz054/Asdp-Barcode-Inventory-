@@ -13,11 +13,11 @@
                 <h4 class="m-0 font-weight-bold text-primary">Data Barang</h4>
 
                 <div class="col-md-12 text-right">
-                        <a href="{{ route('gudang.create') }}" class="btn btn-primary btn-icon-split">
+                        <a style="background-color: #1c63b7" href="{{ route('gudang.create') }}" class="btn btn-primary btn-icon-split btn-sm">
                             <span class="icon text-white-600">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Tambah</span>
+                            <span class="text">Tambah Barang</span>
                         </a>
                 </div>
             </div>

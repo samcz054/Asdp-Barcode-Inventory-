@@ -17,4 +17,8 @@ class Gudang extends Model
     public function stok(){
         return $this->hasMany(Stock::class);
     }
+
+    public function peminjaman(){
+        return $this->hasMany(Peminjaman::class);
+    }
 }

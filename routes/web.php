@@ -43,5 +43,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/stock/destroy/{id}', [App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
 
     Route::get('/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('/peminjaman/create', [App\Http\Controllers\Admin\PeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::post('/peminjaman/store', [App\Http\Controllers\Admin\PeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::delete('/peminjaman/{id}/destroy', [App\Http\Controllers\Admin\PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
 
 });

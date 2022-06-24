@@ -23,11 +23,11 @@
                     <form id="tambahStok" method="POST" action="{{route('stock.store')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="number" name="barang_id" value="{{$dataBarang->id}}" style="display: none">
-                        <button type="submit" class="btn btn-primary btn-icon-split">
+                        <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-icon-split btn-sm">
                             <span class="icon text-white-600">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Tambah</span>
+                            <span class="text">Tambah stok</span>
                         </button>
                     </form>
                             
