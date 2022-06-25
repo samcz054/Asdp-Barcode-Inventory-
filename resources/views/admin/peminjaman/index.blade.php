@@ -1,9 +1,10 @@
 @extends('admin.layout.master')
 
+
 @section('content')
 
     {{-- Modal --}}
-    <div class="modal fade" id="pinjam" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="pinjam" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,9 +28,9 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label>Nama Barang</label>
-                                    <select name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" id="barang">
+                                    <select id="barang" name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" id="barang" style="width: 100%" unique>
                                         <option value="">-Pilih Barang-</option>
                                         @foreach($dataStock as $item)
                                         <option value="{{$item->id}}" {{old('stock_id') == $item->id ? 'selected' : null}}>
@@ -70,8 +71,11 @@
                 <h4 class="m-0 font-weight-bold text-primary">Data Peminjaman</h4>
 
                 <div class="col-md-12 text-right">
-                    {{-- <a href="{{ route('peminjaman.create') }}" class="btn btn-primary btn-icon-split">
-                        Pinjam Barang
+                    {{-- <a style="background-color: #1c63b7" href="{{ route('peminjaman.create') }}" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-600">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Pinjam Barang</span>
                     </a> --}}
                     {{-- trigger modal --}}
                     <button style="background-color: #1c63b7" type="button" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#pinjam">
@@ -100,7 +104,7 @@
                             <tr>
                                 <td>{{++$i}}</td>
                                 <td>{{$row->nama_peminjam}}</td>
-                                <td>{{$row->kodeBarang}}</td>
+                                <td>{{$row->kodeBarang->kode_barang}}</td>
                                 <td>{{$row->tanggal_dipinjam}}</td>
                                 <td>
                                     <form action="{{ route('peminjaman.destroy', $row->id) }}" method="post">
@@ -117,6 +121,13 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#barang').select2();
+        }); 
+    </script>   
 
 
 

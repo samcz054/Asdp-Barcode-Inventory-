@@ -19,10 +19,10 @@ class PeminjamanController extends Controller
     public function index()
     {
         $dataBarangPinjam = PinjamBarang::all();
-        $dataStock = Stock::all();
+        $dataStock = Stock::doesntHave('pinjam')->get();
         $dataPeminjaman = Pinjam::all();
         return view('admin.peminjaman.index',compact('dataPeminjaman','dataStock','dataBarangPinjam'));
-    }
+    }   
 
     /**
      * Show the form for creating a new resource.
@@ -48,29 +48,32 @@ class PeminjamanController extends Controller
             $request,
             [
                 'nama_peminjam'             => 'required',
-                // 'stock_id'                  => 'required|unique'
             ],
             [
-                'nama_peminjam.required'  => "Nama peminjam harus diisi"
+                'nama_peminjam.required'    => "Nama peminjam harus diisi",
             ]
         );
 
         $dataPeminjaman = new Pinjam;
-
         $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
         $dataPeminjaman->stock_id =  $request->stock_id;
         $dataPeminjaman->tanggal_dipinjam = Carbon::now();
-        // Stock::query()->where('id', $dataPeminjaman->stock_id)
-        // ->each(function($diGudang){
-        //     $dipinjam = $diGudang->replicate();
-        //     $dipinjam->setTable('pinjam_barangs');
-        //         $dipinjam->save();
-        //         $diGudang->delete();
-        //     });
         $dataPeminjaman->save();
+        // if($dataPeminjaman->save()){
+        //     Stock::query()->where('id', $request->stock_id)
+        //     ->each(function($diGudang){
+        //         $dipinjam = $diGudang->replicate();
+        //         $dipinjam->setTable('pinjam_barangs');
+        //         $dipinjam->save();
+
+        //         if($dipinjam->save()){
+        //             $diGudang->delete();
+        //         }
+        //     });
+        // }
         return redirect('admin/peminjaman/');
         
-    }
+    }               
 
     /**
      * Display the specified resource.
@@ -116,15 +119,15 @@ class PeminjamanController extends Controller
     {
         $dataPeminjaman = Pinjam::find($id);
         $dataPeminjaman->delete();
-        // if($dataPeminjaman->delete()){
-        //     PinjamBarang::where('id', $dataPeminjaman->delete($id))
-        //     ->each(function($diGudang){
-        //         $dipinjam = $diGudang->replicate();
-        //         $dipinjam->setTable('stocks');
-        //         $dipinjam->save();
-        //         $diGudang->delete();
-        //     });
-        // }
+        if($dataPeminjaman->delete()){
+            PinjamBarang::where('id', $dataPeminjaman->delete($id))
+            ->each(function($diGudang){
+                $dipinjam = $diGudang->replicate();
+                $dipinjam->setTable('stocks');
+                $dipinjam->save();
+                $diGudang->delete();
+            });
+        }
 
         return redirect('admin/peminjaman/')->with('success', 'Data barang berhasil di hapus');
     }

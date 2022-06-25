@@ -20,7 +20,8 @@ class StockController extends Controller
     public function index($id)
     {
         $dataBarang = Gudang::find($id);
-        $dataStock = Stock::where('barang_id',$id)->get();
+        $dataStock = Stock::doesntHave('pinjam')->where('barang_id',$id)->get();
+
         return view('admin.stock.index',compact('dataBarang','dataStock'));
     }
 

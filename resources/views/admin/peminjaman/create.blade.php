@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>Nama Barang</label>
-                                        <select name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" id="barang">
+                                        <select name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" width="100%" id="barang">
                                             <option value="">-Pilih Barang-</option>
                                             @foreach($dataStock as $item)
                                             <option value="{{$item->id}}">

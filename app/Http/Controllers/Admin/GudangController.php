@@ -19,7 +19,7 @@ class GudangController extends Controller
      */
     public function index()
     {
-        $jumlahStock = Stock::all();
+        $jumlahStock = Stock::doesntHave('pinjam')->get();
         $dataBarang = Gudang::all();
         return view('admin.gudang.index',compact('dataBarang','jumlahStock'));
     }

@@ -19,4 +19,8 @@ class Stock extends Model
     public function barang(){
         return $this->belongsTo(Gudang::class);
     }
+
+    public function pinjam(){
+        return $this->hasOne(Pinjam::class,'stock_id');
+    }
 }

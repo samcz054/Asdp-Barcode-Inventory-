@@ -1,4 +1,12 @@
+
+
 @extends('admin.layout.master')
+
+{{-- <style>
+    @media print{
+        .areaCetak :
+    }
+</style> --}}
 
 @section('content')
     <div class="container-fluid">
@@ -29,8 +37,7 @@
                             </span>
                             <span class="text">Tambah stok</span>
                         </button>
-                    </form>
-                            
+                    </form>         
                 </div>
             </div>
             <div class="card-body">
