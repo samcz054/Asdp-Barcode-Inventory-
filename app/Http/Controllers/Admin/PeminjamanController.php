@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pinjam;
-use App\PinjamBarang;
 use App\Stock;
 use Carbon\Carbon;
 
@@ -18,10 +17,9 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $dataBarangPinjam = PinjamBarang::all();
         $dataStock = Stock::doesntHave('pinjam')->get();
         $dataPeminjaman = Pinjam::all();
-        return view('admin.peminjaman.index',compact('dataPeminjaman','dataStock','dataBarangPinjam'));
+        return view('admin.peminjaman.index',compact('dataPeminjaman','dataStock'));
     }   
 
     /**
@@ -59,18 +57,6 @@ class PeminjamanController extends Controller
         $dataPeminjaman->stock_id =  $request->stock_id;
         $dataPeminjaman->tanggal_dipinjam = Carbon::now();
         $dataPeminjaman->save();
-        // if($dataPeminjaman->save()){
-        //     Stock::query()->where('id', $request->stock_id)
-        //     ->each(function($diGudang){
-        //         $dipinjam = $diGudang->replicate();
-        //         $dipinjam->setTable('pinjam_barangs');
-        //         $dipinjam->save();
-
-        //         if($dipinjam->save()){
-        //             $diGudang->delete();
-        //         }
-        //     });
-        // }
         return redirect('admin/peminjaman/');
         
     }               
@@ -119,15 +105,6 @@ class PeminjamanController extends Controller
     {
         $dataPeminjaman = Pinjam::find($id);
         $dataPeminjaman->delete();
-        if($dataPeminjaman->delete()){
-            PinjamBarang::where('id', $dataPeminjaman->delete($id))
-            ->each(function($diGudang){
-                $dipinjam = $diGudang->replicate();
-                $dipinjam->setTable('stocks');
-                $dipinjam->save();
-                $diGudang->delete();
-            });
-        }
 
         return redirect('admin/peminjaman/')->with('success', 'Data barang berhasil di hapus');
     }

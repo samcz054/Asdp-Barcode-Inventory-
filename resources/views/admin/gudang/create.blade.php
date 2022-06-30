@@ -46,6 +46,19 @@
                                     </div>
                                 </div>
                                 {{-- end --}}
+                                {{-- Input Nomor Seri --}}
+                                <div class="form-row">
+                                    <div class="col-md-6 search_select_box">
+                                        <label>Nomor Seri</label>
+                                        <input name="nomor_seri" type="text"
+                                            class="form-control @error('nomor_seri') is-invalid @enderror"
+                                            value="{{ old('nomor_seri') }}" />
+                                        @error('nomor_seri')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- end --}}
                             </div>
                             <div class="col-md-12 mt-3">
                                 <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-sm">

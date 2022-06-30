@@ -10,7 +10,7 @@
                     </div>
                 @endif
 
-                <h4 class="m-0 font-weight-bold text-primary">Data Barang</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Daftar Inventory</h4>
 
                 <div class="col-md-12 text-right">
                         <a style="background-color: #1c63b7" href="{{ route('gudang.create') }}" class="btn btn-primary btn-icon-split btn-sm">
@@ -26,10 +26,10 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th style="width: 12px">No</th>
                                 <th>Gambar</th>
                                 <th>Nama Barang</th>
-                                <th>Stok</th>
+                                <th style="width: 12px">Stok</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

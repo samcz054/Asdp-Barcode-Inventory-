@@ -7,7 +7,7 @@
     </button>
 
     <!-- Topbar Navbar -->
-    <img src="{{url('backend/img/asdp.svg')}}" alt="" style="width: 10%;">
+    <img class="mt-2 mb-2" src="{{url('backend/img/asdp.svg')}}" alt="" style="width: 8%;">
     <ul class="navbar-nav ml-auto">
 
         <div class="topbar-divider d-none d-sm-block"></div>

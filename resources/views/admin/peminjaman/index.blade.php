@@ -34,7 +34,7 @@
                                         <option value="">-Pilih Barang-</option>
                                         @foreach($dataStock as $item)
                                         <option value="{{$item->id}}" {{old('stock_id') == $item->id ? 'selected' : null}}>
-                                            {{$item->barang->nama_barang}} - {{$item->kode_barang}}
+                                            {{$item->barang->nama_barang}} - {{$item->nomor_seri}} - {{$item->kode_barang}}
                                         </option>
                                         @endforeach
                                     </select>
@@ -94,7 +94,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Peminjam</th>
-                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
                                 <th>Tanggal Dipinjam</th>
                                 <th>Action</th>
                             </tr>
@@ -104,7 +104,7 @@
                             <tr>
                                 <td>{{++$i}}</td>
                                 <td>{{$row->nama_peminjam}}</td>
-                                <td>{{$row->kodeBarang->kode_barang}}</td>
+                                <td>{{$row->kodeBarang->barang->nama_barang}} - {{$row->kodeBarang->nomor_seri}} - {{$row->kodeBarang->kode_barang}}</td>
                                 <td>{{$row->tanggal_dipinjam}}</td>
                                 <td>
                                     <form action="{{ route('peminjaman.destroy', $row->id) }}" method="post">

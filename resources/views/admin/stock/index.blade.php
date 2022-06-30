@@ -31,12 +31,23 @@
                     <form id="tambahStok" method="POST" action="{{route('stock.store')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="number" name="barang_id" value="{{$dataBarang->id}}" style="display: none">
-                        <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-icon-split btn-sm">
-                            <span class="icon text-white-600">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span class="text">Tambah stok</span>
-                        </button>
+                        <div class="form-row d-flex">
+                            <div class="col-md-10">
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-icon-split btn-sm mb-2">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Tambah stok</span>
+                                </button>
+                                <input class="form-control @error('nomor_seri') is-invalid @enderror" type="text" placeholder="Nomor Seri" name="nomor_seri">
+                                @error('nomor_seri')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </form>         
                 </div>
             </div>
@@ -48,7 +59,7 @@
                                 <th>No</th>
                                 <th>Nama Barang</th>
                                 <th>Kode_barang</th>
-                                <th>Tanggal Ditambahkan</th>
+                                <th>Nomor Seri</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,7 +69,7 @@
                                 <td>{{++$i}}</td>
                                 <td>{{$row->barang->nama_barang}}</td>
                                 <td>{{$row->kode_barang}}</td>
-                                <td>{{$row->tanggal_ditambahkan}}</td>
+                                <td>{{$row->nomor_seri}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">
                                         <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"

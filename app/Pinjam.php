@@ -18,7 +18,4 @@ class Pinjam extends Model
     public function kodeBarang(){
         return $this->belongsTo(Stock::class,'stock_id','id');
     }
-    public function namaBarang(){
-        return $this->belongsTo(Gudang::class);
-    }
 }

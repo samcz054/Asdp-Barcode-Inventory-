@@ -43,12 +43,23 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'nomor_seri'             => 'required|unique:stocks',
+            ],
+            [
+                'nomor_seri.required'   => "Harap isi nomor seri",
+                'nomor_seri.unique'     => "Nomor seri sudah ada",
+            ]
+        );
+
         $prefix = date('ym');
         $generateBarcode = IdGenerator::generate(['table' => 'stocks', 'field' => 'kode_barang', 'length' => 10, 'prefix' => $prefix]);   
         $stokBaru = new Stock;
         $stokBaru->barang_id = $request->input('barang_id');
+        $stokBaru->nomor_seri = $request->input('nomor_seri');
         $stokBaru->kode_barang = $generateBarcode;
-        $stokBaru->tanggal_ditambahkan = Carbon::parse($stokBaru['created_at']);
         $stokBaru->save();
 
         return Redirect::back()->with('success', 'Stok barang berhasil di tambah');

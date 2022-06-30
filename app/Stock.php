@@ -12,7 +12,7 @@ class Stock extends Model
     protected $fillable = [
         'barang_id',
         'kode_barang',
-        'tanggal_ditambahkan'
+        'nomor_seri'
         
     ];
 

@@ -46,15 +46,16 @@ class GudangController extends Controller
             $request,
             [
                 'nama_barang'           => 'required',
+                'nomor_seri'            => 'required',
             ],
             [
                 'nama_barang.required'  => "Nama barang harus diisi",
+                'nomor_seri.required'   => "Nomor Seri harus diisi",
             ]
         );
 
 
         $dataBarang = new Gudang;
-
         $dataBarang->nama_barang = $request->input('nama_barang');
 
         if ($request->hasFile('gambar')) {
@@ -68,8 +69,8 @@ class GudangController extends Controller
             $generateBarcode = IdGenerator::generate(['table' => 'stocks', 'field' => 'kode_barang', 'length' => 10, 'prefix' => $prefix]);   
             $stokBaru = new Stock;
             $stokBaru->barang_id = $dataBarang->id;
+            $stokBaru->nomor_seri = $request->input('nomor_seri');
             $stokBaru->kode_barang = $generateBarcode;
-            $stokBaru->tanggal_ditambahkan = Carbon::now();
             $stokBaru->save();
         }
 
