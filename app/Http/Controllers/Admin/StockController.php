@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Gudang;
 use App\Stock;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -97,7 +96,25 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'nomor_seri'             => 'required|unique:stocks',
+            ],
+            [
+                'nomor_seri.required'   => "Harap isi nomor seri",
+                'nomor_seri.unique'     => "Nomor seri sudah ada",
+            ]
+        );
+
+        $stok = Stock::find($id);
+        $stok->barang_id = $request->barang_id;
+        $stok->nomor_seri = $request->nomor_seri;
+        $stok->kode_barang = $request->kode_barang;
+
+        $stok->update();
+
+        return Redirect::back()->with('success, Nomor seri berhasil di update');
     }
 
     /**
@@ -106,9 +123,9 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $stock = Stock::find($id);
+        $stock = Stock::find($request->stock_modal_delete_id);
         $stock->delete();
 
         return Redirect::back()->with('success', 'Stok barang berhasil di hapus');

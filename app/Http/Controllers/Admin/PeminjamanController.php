@@ -101,9 +101,9 @@ class PeminjamanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $dataPeminjaman = Pinjam::find($id);
+        $dataPeminjaman = Pinjam::find($request->pengembalian_barang_id);
         $dataPeminjaman->delete();
 
         return redirect('admin/peminjaman/')->with('success', 'Data barang berhasil di hapus');

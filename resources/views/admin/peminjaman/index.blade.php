@@ -58,6 +58,42 @@
     </div>
     {{-- end --}}
 
+    <!-- Modal pengembalian -->
+    <div class="modal fade" id="barangKembali" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Perhatian !!!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{route('peminjaman.destroy')}}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden"name="pengembalian_barang_id" id="pinjam_id">
+                        Apakah barang yang dipilih sudah dikembalikan ? 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-icon-split btn-sm" data-dismiss="modal">
+                            <span class="icon text-gray-600">
+                                <i class="fas fa-x"></i>
+                            </span>
+                            <span class="text">Tidak</span>
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-icon-split btn-sm">
+                            <span class="icon text-white-600">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Iya</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
+
 
     <div class="container-fluid">
         <div class="card shadow mb-4">
@@ -95,6 +131,7 @@
                                 <th>No</th>
                                 <th>Nama Peminjam</th>
                                 <th>Nama Barang</th>
+                                <th>Kode Barang</th>
                                 <th>Tanggal Dipinjam</th>
                                 <th>Action</th>
                             </tr>
@@ -104,14 +141,21 @@
                             <tr>
                                 <td>{{++$i}}</td>
                                 <td>{{$row->nama_peminjam}}</td>
-                                <td>{{$row->kodeBarang->barang->nama_barang}} - {{$row->kodeBarang->nomor_seri}} - {{$row->kodeBarang->kode_barang}}</td>
+                                <td>{{$row->kodeBarang->barang->nama_barang}} - {{$row->kodeBarang->nomor_seri}}</td>
+                                <td>{{$row->kodeBarang->kode_barang}}</td>
                                 <td>{{$row->tanggal_dipinjam}}</td>
                                 <td>
-                                    <form action="{{ route('peminjaman.destroy', $row->id) }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="ml-5 btn btn-danger" type="submit">Hapus</button>
-                                    </form>
+                                    <div class="dropdown no-arrow mb-4">
+                                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" >
+                                            Action
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Detail Peminjaman</a>
+                                            <button type="button" value="{{$row->id}}" class="dropdown-item pengembalianBtn" data-toggle="modal" data-target="#barangKembali" >Barang Kembali</button> 
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -127,7 +171,19 @@
         $(document).ready(function() {
             $('#barang').select2();
         }); 
-    </script>   
+    </script>
+    
+    <script>
+        $(document).ready(function () {
+            $('.pengembalianBtn').click(function(e){
+                e.preventDefault();
+
+                var pinjam_id = $(this).val();
+                $('#pinjam_id').val(pinjam_id);
+                $('#barangKembali').model('show');
+            });
+        });
+    </script>
 
 
 
