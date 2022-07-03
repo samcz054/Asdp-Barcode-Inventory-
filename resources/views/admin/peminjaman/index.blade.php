@@ -141,8 +141,8 @@
                             <tr>
                                 <td>{{++$i}}</td>
                                 <td>{{$row->nama_peminjam}}</td>
-                                <td>{{$row->kodeBarang->barang->nama_barang}} - {{$row->kodeBarang->nomor_seri}}</td>
-                                <td>{{$row->kodeBarang->kode_barang}}</td>
+                                <td>{{$row->stock->barang->nama_barang}} - {{$row->stock->nomor_seri}}</td>
+                                <td>{{$row->stock->kode_barang}}</td>
                                 <td>{{$row->tanggal_dipinjam}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">

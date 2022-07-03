@@ -15,7 +15,7 @@ class Pinjam extends Model
         'tanggal_dipinjam'
     ];
 
-    public function kodeBarang(){
+    public function stock(){
         return $this->belongsTo(Stock::class,'stock_id','id');
     }
 }
