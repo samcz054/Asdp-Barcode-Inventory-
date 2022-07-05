@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label>Nama Barang</label>
-                                    <select id="barang" name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" id="barang" style="width: 100%" unique>
+                                    <select id="barang" name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" id="barang" style="width: 100%">
                                         <option value="">-Pilih Barang-</option>
                                         @foreach($dataStock as $item)
                                         <option value="{{$item->id}}" {{old('stock_id') == $item->id ? 'selected' : null}}>
@@ -77,13 +77,13 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light btn-icon-split btn-sm" data-dismiss="modal">
                             <span class="icon text-gray-600">
-                                <i class="fas fa-x"></i>
+                                <i class="fas fa-arrow-left mt-1"></i>
                             </span>
                             <span class="text">Tidak</span>
                         </button>
                         <button type="submit" class="btn btn-danger btn-icon-split btn-sm">
                             <span class="icon text-white-600">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check mt-1"></i>
                             </span>
                             <span class="text">Iya</span>
                         </button>
@@ -116,7 +116,7 @@
                     {{-- trigger modal --}}
                     <button style="background-color: #1c63b7" type="button" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#pinjam">
                         <span class="icon text-white-600">
-                            <i class="fas fa-plus"></i>
+                            <i class="fas fa-plus mt-1"></i>
                         </span>
                         <span class="text">Pinjam Barang</span>
                     </button>

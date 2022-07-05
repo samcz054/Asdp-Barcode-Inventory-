@@ -6,7 +6,7 @@
         <!-- Content Row -->
         <a href="{{route('gudang.index')}}" class="btn btn-light btn-icon-split mb-3">
             <span class="icon text-gray-600">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left mt-1"></i>
             </span>
             <span class="text">Kembali</span>
         </a>

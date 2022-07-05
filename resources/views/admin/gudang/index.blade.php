@@ -52,7 +52,7 @@
                 <div class="col-md-12 text-right">
                         <a style="background-color: #1c63b7" href="{{ route('gudang.create') }}" class="btn btn-primary btn-icon-split btn-sm">
                             <span class="icon text-white-600">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus mt-1"></i>
                             </span>
                             <span class="text">Tambah Barang</span>
                         </a>
@@ -75,7 +75,11 @@
                             <tr>
                                 <td>{{++$i}}</td>
                                 <td>
-                                    <img src="{{asset('fotobarang/'.$row->gambar)}}" width="50px" height="50px" alt="gambar">
+                                    @if (isset($row->gambar))
+                                        <img src="{{asset('fotobarang/'.$row->gambar)}}" width="50px" height="50px" alt="gambar">    
+                                    @else
+                                        <img src="{{asset('fotobarang/default/default.jpg')}}" width="50px" height="50px" alt="gambar">
+                                    @endif
                                 </td>
                                 <td>{{$row->nama_barang}}</td>
                                 <td>{{$jumlahStock->where('barang_id',$row->id)->count()}}</td>

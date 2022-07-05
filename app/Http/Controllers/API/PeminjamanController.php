@@ -25,18 +25,20 @@ class PeminjamanController extends Controller
         else if(empty($stock->pinjam)){
             return response()->json([
                 'nama_peminjam' => 'digudang',
-                'nama_barang' => $stock->barang->nama_barang,
-                'kode_barang' => $stock->kode_barang,
-                'nomor_seri'  => $stock->nomor_seri
+                'gambar'        => $stock->barang->gambar,
+                'nama_barang'   => $stock->barang->nama_barang,
+                'kode_barang'   => $stock->kode_barang,
+                'nomor_seri'    => $stock->nomor_seri
             ],201);
         }
         // jika barang dipinjam
         else if($stock->pinjam){
             return response()->json([
                 'nama_peminjam' => $stock->pinjam->nama_peminjam,
-                'nama_barang' => $stock->barang->nama_barang,
-                'kode_barang' => $stock->kode_barang,
-                'nomor_seri'  => $stock->nomor_seri
+                'gambar'        => $stock->barang->gambar,
+                'nama_barang'   => $stock->barang->nama_barang,
+                'kode_barang'   => $stock->kode_barang,
+                'nomor_seri'    => $stock->nomor_seri
             ],201);
         }
     }

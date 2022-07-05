@@ -29,13 +29,13 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light btn-icon-split btn-sm" data-dismiss="modal">
                             <span class="icon text-gray-600">
-                                <i class="fas fa-arrow-left"></i>
+                                <i class="fas fa-arrow-left mt-1"></i>
                             </span>
                             <span class="text">Tidak</span>
                         </button>
                         <button type="submit" class="btn btn-danger btn-icon-split btn-sm">
                             <span class="icon text-white-600">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash mt-1"></i>
                             </span>
                             <span class="text">Iya</span>
                         </button>
@@ -49,7 +49,7 @@
     <div class="container-fluid">
         <a href="{{route('gudang.index')}}" class="btn btn-light btn-icon-split mb-3">
             <span class="icon text-gray-600">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left mt-1"></i>
             </span>
             <span class="text">Kembali</span>
         </a>
@@ -75,7 +75,7 @@
                             <div class="col-md-2">
                                 <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-icon-split btn-sm mb-2">
                                     <span class="icon text-white-600">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus mt-1"></i>
                                     </span>
                                     <span class="text">Tambah stok</span>
                                 </button>
@@ -127,7 +127,7 @@
 
                             {{-- Modals cetak barcode --}}
                             <div class="modal fade-scale" id="cetakBarcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                     <h6 class="modal-title" id="exampleModalLongTitle">Cetak Barcode</h6>

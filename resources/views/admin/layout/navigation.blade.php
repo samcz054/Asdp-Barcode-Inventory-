@@ -47,8 +47,8 @@
         <div id="histori" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Log:</h6>
-                <a class="collapse-item" href="#">Peminjaman</a>
-                <a class="collapse-item" href="#">Pengembalian</a>
+                <a class="collapse-item" href="{{route('logPeminjaman.index')}}">Peminjaman</a>
+                <a class="collapse-item" href="{{route('logPengembalian.index')}}">Pengembalian</a>
             </div>
         </div>
     </li>

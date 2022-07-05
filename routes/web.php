@@ -33,7 +33,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/gudang/{id}/edit', [App\Http\Controllers\Admin\GudangController::class, 'edit'])->name('gudang.edit');
     Route::post('/gudang/store', [App\Http\Controllers\Admin\GudangController::class, 'store'])->name('gudang.store');
     Route::put('/gudang/{id}/update', [App\Http\Controllers\Admin\GudangController::class, 'update'])->name('gudang.update');
-    // Route::delete('/gudang/{id}/destroy', [App\Http\Controllers\Admin\GudangController::class, 'destroy'])->name('gudang.destroy');
     Route::post('/gudang/destroy', [App\Http\Controllers\Admin\GudangController::class, 'destroy'])->name('gudang.destroy');
 
     // Stock Routes
@@ -41,13 +40,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/stock/{id}',[App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
     Route::get('/stock/{id}/cetak',[App\Http\Controllers\Admin\StockController::class, 'show'])->name('stock.show');
     Route::post('/stock/store', [App\Http\Controllers\Admin\StockController::class, 'store'])->name('stock.store');
-    // Route::delete('/stock/destroy/{id}', [App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
     Route::post('/stock/destroy/', [App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
     
     Route::get('/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'index'])->name('peminjaman.index');
     Route::get('/peminjaman/create', [App\Http\Controllers\Admin\PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/peminjaman/store', [App\Http\Controllers\Admin\PeminjamanController::class, 'store'])->name('peminjaman.store');
-    //Route::delete('/peminjaman/{id}/destroy', [App\Http\Controllers\Admin\PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
     Route::post('/peminjaman/destroy', [App\Http\Controllers\Admin\PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+
+    // Log transaksi
+    Route::get('/log/peminjaman',[App\Http\Controllers\Admin\LogController::class, 'logPeminjaman'])->name('logPeminjaman.index');
+    Route::get('/log/pengembalian',[App\Http\Controllers\Admin\LogController::class, 'logPengembalian'])->name('logPengembalian.index');
 
 });
