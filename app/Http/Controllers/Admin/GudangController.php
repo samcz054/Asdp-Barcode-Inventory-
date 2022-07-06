@@ -74,7 +74,7 @@ class GudangController extends Controller
             $stokBaru->save();
         }
 
-        return redirect('admin/gudang/');
+        return redirect('admin/gudang/')->with('success, Data barang berhasil ditambahkan');
     }
 
     /**
@@ -120,7 +120,7 @@ class GudangController extends Controller
         $dataBarang->nama_barang = $request->nama_barang;
         $dataBarang->update();
 
-        return redirect('admin/gudang/')->with('success, Data barang berhasil di update');
+        return redirect('admin/gudang/')->with('success, Data barang berhasil diperbarui');
     }
 
     /**
@@ -137,6 +137,6 @@ class GudangController extends Controller
         }
         $dataBarang->delete();
 
-        return redirect('admin/gudang/')->with('success', 'Data barang berhasil di hapus');
+        return redirect('admin/gudang/')->with('success', 'Data barang berhasil dihapus');
     }
 }

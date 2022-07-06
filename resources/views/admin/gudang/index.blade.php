@@ -41,9 +41,9 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                @if (session()->get('sukses'))
+                @if (session()->get('success'))
                     <div class="alert alert-success">
-                        {{ session()->get('sukses') }}
+                        {{ session()->get('success') }}
                     </div>
                 @endif
 

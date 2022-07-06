@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Pinjam;
 use App\Stock;
 use Carbon\Carbon;
+use DateTime;
+use Illuminate\Support\Facades\Date;
 
 class PeminjamanController extends Controller
 {
@@ -51,13 +53,18 @@ class PeminjamanController extends Controller
                 'nama_peminjam.required'    => "Nama peminjam harus diisi",
             ]
         );
+        
+        $tanggal_dipinjam = Carbon::now();
+        $waktu = new DateTime();
+
 
         $dataPeminjaman = new Pinjam;
         $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
         $dataPeminjaman->stock_id =  $request->stock_id;
-        $dataPeminjaman->tanggal_dipinjam = Carbon::now();
+        $dataPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
+        $dataPeminjaman->waktu = $waktu->format('H:i:s');
         $dataPeminjaman->save();
-        return redirect('admin/peminjaman/');
+        return redirect('admin/peminjaman/')->with(['success'=>'Peminjaman berhasil dilakukan']);
         
     }               
 
@@ -106,6 +113,6 @@ class PeminjamanController extends Controller
         $dataPeminjaman = Pinjam::find($request->pengembalian_barang_id);
         $dataPeminjaman->delete();
 
-        return redirect('admin/peminjaman/')->with('success', 'Data barang berhasil di hapus');
+        return redirect('admin/peminjaman/')->with(['success'=>'Barang berhasil dikembalikan']);
     }
 }

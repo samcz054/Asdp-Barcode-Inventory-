@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Pinjam;
 use App\Stock;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -50,7 +51,7 @@ class PeminjamanController extends Controller
         if(empty($dataStock)){
             return response()->json([
                 "error" =>  "Barang tidak terdaftar"
-            ],404);
+            ],405);
         }
         if($dataStock->pinjam){
             return response()->json([
@@ -64,11 +65,15 @@ class PeminjamanController extends Controller
             ],[
                 'nama_peminjam.required'   => 'harap isi nama peminjam'
             ]);
+            
+            $waktu = new DateTime();
 
             $dataPeminjaman = new Pinjam;
             $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
             $dataPeminjaman->stock_id = Stock::where('kode_barang',$request->kode_barang)->first()->id;
             $dataPeminjaman->tanggal_dipinjam = Carbon::now();
+            $dataPeminjaman->waktu = $waktu->format('H:i:s');
+
             $dataPeminjaman->save();
             return response()->json([
                 $dataPeminjaman

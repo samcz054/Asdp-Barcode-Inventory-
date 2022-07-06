@@ -98,9 +98,9 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                @if (session()->get('sukses'))
+                @if (session()->get('success'))
                     <div class="alert alert-success">
-                        {{ session()->get('sukses') }}
+                        {{ session()->get('success') }}
                     </div>
                 @endif
 
@@ -143,7 +143,7 @@
                                 <td>{{$row->nama_peminjam}}</td>
                                 <td>{{$row->stock->barang->nama_barang}} - {{$row->stock->nomor_seri}}</td>
                                 <td>{{$row->stock->kode_barang}}</td>
-                                <td>{{$row->tanggal_dipinjam}}</td>
+                                <td>{{tanggal_indonesia($row->tanggal_dipinjam)}} - {{$row->waktu}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">
                                         <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"

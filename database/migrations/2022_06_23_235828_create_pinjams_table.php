@@ -18,6 +18,7 @@ class CreatePinjamsTable extends Migration
             $table->unsignedBigInteger('stock_id');
             $table->string('nama_peminjam');
             $table->date('tanggal_dipinjam');
+            $table->time('waktu');
             $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
