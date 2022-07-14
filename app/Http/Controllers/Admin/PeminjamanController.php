@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\HistoryPeminjaman;
+use App\HistoryPengembalian;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pinjam;
@@ -64,6 +66,14 @@ class PeminjamanController extends Controller
         $dataPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
         $dataPeminjaman->waktu = $waktu->format('H:i:s');
         $dataPeminjaman->save();
+        if ($dataPeminjaman->save()){
+            $logPeminjaman = new HistoryPeminjaman;
+            $logPeminjaman->nama_peminjam = $dataPeminjaman->nama_peminjam;
+            $logPeminjaman->stock_id = $dataPeminjaman->stock_id;
+            $logPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
+            $logPeminjaman->waktu = $waktu->format('H:i:s');
+            $logPeminjaman->save();
+        }
         return redirect('admin/peminjaman/')->with(['success'=>'Peminjaman berhasil dilakukan']);
         
     }               
@@ -110,8 +120,21 @@ class PeminjamanController extends Controller
      */
     public function destroy(Request $request)
     {
+        $tanggal_dipinjam = Carbon::now();
+        $waktu = new DateTime();
+
         $dataPeminjaman = Pinjam::find($request->pengembalian_barang_id);
+
+        if ($dataPeminjaman->delete()){
+            $logPengembalian = new HistoryPengembalian;
+            $logPengembalian->nama_peminjam = $dataPeminjaman->nama_peminjam;
+            $logPengembalian->stock_id = $dataPeminjaman->stock_id;
+            $logPengembalian->tanggal_dipinjam = $tanggal_dipinjam;
+            $logPengembalian->waktu = $waktu->format('H:i:s');
+            $logPengembalian->save();
+        }
         $dataPeminjaman->delete();
+        
 
         return redirect('admin/peminjaman/')->with(['success'=>'Barang berhasil dikembalikan']);
     }

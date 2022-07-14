@@ -78,18 +78,20 @@
                                 <th>Nama barang</th>
                                 <th>Nomor Seri</th>
                                 <th>Kode Barang</th>
-                                <th>Tanggal Peminjaman</th>
+                                <th>Waktu dan Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($logPeminjaman as $i=>$row)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{++$i}}</td>
+                                <td>{{$row->nama_peminjam}}</td>
+                                <td>{{$row->stock->barang->nama_barang}}</td>
+                                <td>{{$row->stock->nomor_seri}}</td>
+                                <td>{{$row->stock->kode_barang}}</td>
+                                <td>{{$row->waktu}} - {{tanggal_indonesia($row->tanggal_dipinjam)}}</td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

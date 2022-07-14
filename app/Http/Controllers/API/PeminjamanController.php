@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Redirect;
 class PeminjamanController extends Controller
 {
 
-    public function detailBarang(Request $request){
+    public function detailBarang($kode_barang){
 
-        $stock = Stock::with('barang')->where('kode_barang',$request->kode_barang)->first();
+        // $stock = Stock::with('barang')->where('kode_barang',$request->kode_barang)->first();
+        $stock = Stock::with('barang')->where('kode_barang',$kode_barang)->first();
         //jika kode barang tidak ada
         if(empty($stock)){
             return response()->json([

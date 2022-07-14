@@ -15,6 +15,11 @@ class CreateHistoryPengembaliansTable extends Migration
     {
         Schema::create('history_pengembalians', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('stock_id');
+            $table->string('nama_peminjam');
+            $table->date('tanggal_dipinjam');
+            $table->time('waktu');
+            $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

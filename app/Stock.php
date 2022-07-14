@@ -23,4 +23,12 @@ class Stock extends Model
     public function pinjam(){
         return $this->hasOne(Pinjam::class,'stock_id');
     }
+
+    public function log_peminjaman(){
+        return $this->hasOne(HistoryPeminjaman::class,'stock_id');
+    }
+
+    public function log_pengembalian(){
+        return $this->hasOne(HistoryPengembalian::class,'stock_id');
+    }
 }
