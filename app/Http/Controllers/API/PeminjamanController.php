@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\HistoryPeminjaman;
+use App\HistoryPengembalian;
 use App\Http\Controllers\Controller;
 use App\Pinjam;
 use App\Stock;
@@ -9,6 +11,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Psy\Command\HistoryCommand;
 
 class PeminjamanController extends Controller
 {
@@ -74,8 +77,15 @@ class PeminjamanController extends Controller
             $dataPeminjaman->stock_id = Stock::where('kode_barang',$request->kode_barang)->first()->id;
             $dataPeminjaman->tanggal_dipinjam = Carbon::now();
             $dataPeminjaman->waktu = $waktu->format('H:i:s');
-
             $dataPeminjaman->save();
+            if($dataPeminjaman->save()){
+                $log = new HistoryPeminjaman;
+                $log->nama_peminjam = $dataPeminjaman->nama_peminjam;
+                $log->stock_id = $dataPeminjaman->stock_id;
+                $log->tanggal_dipinjam = Carbon::now();
+                $log->waktu = $dataPeminjaman->waktu;
+                $log->save();
+            }
             return response()->json([
                 $dataPeminjaman
             ],201);
@@ -96,7 +106,16 @@ class PeminjamanController extends Controller
                 'error' => 'Barang berada digudang'
             ],404);
         }if($dataPeminjaman->pinjam){
+            $waktu = new DateTime();
             $pinjam = Pinjam::find($dataPeminjaman->pinjam->id);
+            if($pinjam->delete()){
+                $logPengembalian = new HistoryPengembalian();
+                $logPengembalian->nama_peminjam = $pinjam->nama_peminjam;
+                $logPengembalian->stock_id = $pinjam->stock_id;
+                $logPengembalian->tanggal_dipinjam = Carbon::now();
+                $logPengembalian->waktu = $waktu->format('H:i:s');
+                $logPengembalian->save();
+            }
             $pinjam->delete();
             return response()->json([
                 'berhasil' => 'barang berhasil dikembalikan'
