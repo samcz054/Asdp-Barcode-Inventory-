@@ -3,6 +3,9 @@
 
 @section('content')
 
+
+
+
     {{-- Modal --}}
     <div class="modal fade" id="pinjam" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -13,24 +16,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('peminjaman.store')}}" method="POST">
-                    {{ csrf_field() }}
+
                     <div class="modal-body">
                         <div class="form-group">
                             {{-- Input Nama Barang --}}
+
+                            <ul id="saveform_error"></ul>
+
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <label class="text-start">Nama peminjam</label>
                                     <input name="nama_peminjam" type="text"
-                                        class="form-control @error('nama_peminjam') is-invalid @enderror"
-                                        value="{{ old('nama_peminjam') }}" />
-                                    @error('nama_peminjam')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                        class="nama_peminjam form-control"/>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-2">
                                     <label>Nama Barang</label>
-                                    <select id="barang" name="stock_id" class="form-control  @error('stock_id') is-invalid @enderror" id="barang" style="width: 100%">
+                                    <select id="barang" name="stock_id" class="stock_id form-control" style="width: 100%">
                                         <option value="">-Pilih Barang-</option>
                                         @foreach($dataStock as $item)
                                         <option value="{{$item->id}}" {{old('stock_id') == $item->id ? 'selected' : null}}>
@@ -38,9 +39,6 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error('stock_id')
-                                    <div class="invalid-feedback">{{$message}}</div>
-                                    @enderror
                                 </div>
                             </div>
                             {{-- end --}}
@@ -48,11 +46,11 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary btn-sm">
+                        <button type="button" class="btn btn-primary btn-sm pinjam_barang">
                             <i class="fa fa-dot-circle-o"></i> Simpan
                         </button>
                     </div>
-                </form>
+
             </div>
         </div>
     </div>
@@ -98,11 +96,14 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                @if (session()->get('success'))
+                {{-- @if (session()->get('success'))
                     <div class="alert alert-success">
                         {{ session()->get('success') }}
                     </div>
-                @endif
+                @endif --}}
+
+                <div id="success_message"></div>
+                
 
                 <h4 class="m-0 font-weight-bold text-primary">Data Peminjaman</h4>
 
@@ -171,6 +172,47 @@
         $(document).ready(function() {
             $('#barang').select2();
         }); 
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $(document).on('click', '.pinjam_barang', function(e){
+                e.preventDefault();
+                var data = {
+                    'nama_peminjam' : $('.nama_peminjam').val(),
+                    'stock_id'      : $('.stock_id').val(),
+                }
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url : "peminjaman/store",
+                    data: data,
+                    dataType: "json",
+                    success: function(response){
+                        if(response.status == 400){
+                            $('#saveform_error').html("");
+                            $('#saveform_error').addClass("alert alert-danger");
+                            $.each(response.errors, function(key, err_values){
+                                $('#saveform_error').append('<li>'+err_values+'</li>');
+                            });
+                        }else{
+                            window.location = "peminjaman";
+                            $('#saveform_error').html("");
+                            $('#success_message').addClass("alert alert-success");
+                            $('#success_message').text(response.message);
+                            $('#pinjam').modal('hide');
+                            $('#pinjam').find('input').val("");
+                        }   
+                    }
+                });
+            });
+        });
     </script>
     
     <script>

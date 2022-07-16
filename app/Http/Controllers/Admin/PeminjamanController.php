@@ -10,7 +10,7 @@ use App\Pinjam;
 use App\Stock;
 use Carbon\Carbon;
 use DateTime;
-use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Validator;
 
 class PeminjamanController extends Controller
 {
@@ -46,35 +46,60 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
 
-        $this->validate(
-            $request,
-            [
+
+        $validator = Validator::make($request->all(), [
                 'nama_peminjam'             => 'required',
+                'stock_id'                  => 'required',
             ],
-            [
-                'nama_peminjam.required'    => "Nama peminjam harus diisi",
+            $message = [
+                'nama_peminjam.required' => 'Nama peminjam harus diisi', 
+                'stock_id.required' =>      'Pilih barang yang akan dipinjam', 
             ]
         );
-        
-        $tanggal_dipinjam = Carbon::now();
-        $waktu = new DateTime();
 
+        if($validator->fails()){
+            return response()->json([
+                'status'    => 400,
+                'errors'    => $message,
 
-        $dataPeminjaman = new Pinjam;
-        $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
-        $dataPeminjaman->stock_id =  $request->stock_id;
-        $dataPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
-        $dataPeminjaman->waktu = $waktu->format('H:i:s');
-        $dataPeminjaman->save();
-        if ($dataPeminjaman->save()){
-            $logPeminjaman = new HistoryPeminjaman;
-            $logPeminjaman->nama_peminjam = $dataPeminjaman->nama_peminjam;
-            $logPeminjaman->stock_id = $dataPeminjaman->stock_id;
-            $logPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
-            $logPeminjaman->waktu = $waktu->format('H:i:s');
-            $logPeminjaman->save();
+            ]);
+        } else { 
+            $dataPeminjaman = new Pinjam;
+            $tanggal_dipinjam = Carbon::now();
+            $waktu = new DateTime();
+            $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
+            $dataPeminjaman->stock_id =  $request->stock_id;
+            $dataPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
+            $dataPeminjaman->waktu = $waktu->format('H:i:s');
+            $dataPeminjaman->save();
+            if ($dataPeminjaman->save()){
+                $logPeminjaman = new HistoryPeminjaman;
+                $logPeminjaman->nama_peminjam = $dataPeminjaman->nama_peminjam;
+                $logPeminjaman->stock_id = $dataPeminjaman->stock_id;
+                $logPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
+                $logPeminjaman->waktu = $waktu->format('H:i:s');
+                $logPeminjaman->save();
+            }
+            return response()->json([
+                'status'    => 200,
+                'message'   => 'Peminjaman berhasil dilakukan'
+            ]);
         }
-        return redirect('admin/peminjaman/')->with(['success'=>'Peminjaman berhasil dilakukan']);
+
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'nama_peminjam'             => 'required',
+        //         'stock_id'  => 'required',
+        //     ],
+        //     [
+        //         'nama_peminjam.required'    => "Nama peminjam harus diisi",
+        //         'stock_id'         => "Pilih barang yang akan dipinjam"
+        //     ]
+        // );
+        
+        
+        // return redirect('admin/peminjaman/')->with(['success'=>'Peminjaman berhasil dilakukan']);
         
     }               
 
