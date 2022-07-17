@@ -22,7 +22,7 @@ class PeminjamanController extends Controller
     public function index()
     {
         $dataStock = Stock::doesntHave('pinjam')->get();
-        $dataPeminjaman = Pinjam::all();
+        $dataPeminjaman = Pinjam::orderBy('created_at', 'desc')->get();
         return view('admin.peminjaman.index',compact('dataPeminjaman','dataStock'));
     }   
 

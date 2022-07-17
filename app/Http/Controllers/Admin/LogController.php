@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class LogController extends Controller
 {
     public function logPeminjaman(){
-        $logPeminjaman = HistoryPeminjaman::all();
+        $logPeminjaman = HistoryPeminjaman::orderBy('created_at', 'desc')->get();
         return view ('admin.log.peminjaman',compact('logPeminjaman'));
     }
 
     public function logPengembalian(){
-        $logPengembalian = HistoryPengembalian::all();
+        $logPengembalian = HistoryPengembalian::orderBy('created_at', 'desc')->get();
         return view ('admin.log.pengembalian',compact('logPengembalian'));
     }
 }
