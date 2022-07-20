@@ -12,8 +12,11 @@
     <li class="nav-item active ">
         <a class="nav-link" href="{{url('/admin')}}">
             <i style="color: #dadada" class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dasboard</span></a>
-        </li>
+            <span>Dasboard</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider my-0 mb-4">
         
     
     <!-- Heading Menu Utama -->

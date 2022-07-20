@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 {{-- Gambar Input--}}
                                 <div class="form-row">
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-md-12">
                                         <img class="img-preview img-fluid mb-2" width="150px" height="150px">
                                         <label class="form-label"></label>
                                         <input class="form-control" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
@@ -35,7 +35,7 @@
                                 {{-- end --}}
                                 {{-- Input Nama Barang --}}
                                 <div class="form-row">
-                                    <div class="col-md-6 search_select_box">
+                                    <div class="col-md-12 mb-3">
                                         <label>Nama Barang</label>
                                         <input name="nama_barang" type="text"
                                             class="form-control @error('nama_barang') is-invalid @enderror"
@@ -46,9 +46,17 @@
                                     </div>
                                 </div>
                                 {{-- end --}}
+
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Deskripsi / Keterangan </label>
+                                        <textarea type="text" name="keterangan" class="form-control" rows="8">{{ old('keterangan') }}</textarea>
+                                    </div>
+                                </div>
+
                                 {{-- Input Nomor Seri --}}
                                 <div class="form-row">
-                                    <div class="col-md-6 search_select_box">
+                                    <div class="col-md-12 mb-3">
                                         <label>Nomor Seri</label>
                                         <input name="nomor_seri" type="text"
                                             class="form-control @error('nomor_seri') is-invalid @enderror"

@@ -62,7 +62,35 @@
                 @endif
                 
 
-                <h4 class="m-0 font-weight-bold text-primary">Stok {{$dataBarang->nama_barang}}</h4>
+                <h4 class="m-0 font-weight-bold text-primary mb-4">Stok {{$dataBarang->nama_barang}}</h4>
+
+                <hr>
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            @if (isset($dataBarang->gambar))
+                                <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" width="50%" alt="gambar">    
+                            @else
+                                <img src="{{asset('fotobarang/default/default.jpg')}}"  width="50%" height="50%"  alt="gambar">
+                            @endif
+
+                            <h3 class="mt-4">{{$dataBarang->nama_barang}}</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>
+                                Deskripsi  :
+                            </h4>
+                            @if (isset($dataBarang->keterangan))
+                                <textarea disabled cols="50" rows="10">{{$dataBarang->keterangan}}</textarea>
+                            @else
+                                <textarea class="text-center" disabled rows="10">Tidak ada Keterangan</textarea>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                
+                
 
                 <div class="col-md-12 text-right">
                     <form id="tambahStok" method="POST" action="{{route('stock.store')}}" enctype="multipart/form-data">

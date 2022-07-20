@@ -27,16 +27,17 @@
                             <div class="form-group">
                                 {{-- Gambar Input--}}
                                 <div class="form-row">
-                                    <div class="mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" class="img-preview img-fluid mb-2" width="150px" height="150px">
                                         <label class="form-label"></label>
                                         <input class="form-control" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
                                     </div>
+
                                 </div>
                                 {{-- end --}}
                                 {{-- Input Nama Barang --}}
                                 <div class="form-row">
-                                    <div class="col-md-6 search_select_box">
+                                    <div class="col-md-12 mb-3">
                                         <label>Nama Barang</label>
                                         <input name="nama_barang" type="text"
                                             class="form-control @error('nama_barang') is-invalid @enderror"
@@ -47,6 +48,13 @@
                                     </div>
                                 </div>
                                 {{-- end --}}
+                                {{-- Input Keterangan Barang --}}
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <label>Deskripsi / Keterangan </label>
+                                        <textarea type="text" name="keterangan" class="form-control" rows="8">{{ old('keterangan',$dataBarang->keterangan) }}</textarea>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-12 mt-3">
                                 <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-sm">

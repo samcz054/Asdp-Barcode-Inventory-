@@ -26,6 +26,7 @@ class PeminjamanController extends Controller
                 'error' => 'Barang tidak terdaftar harap hubungi pak oke'
             ],404);
         }
+
         // jika barang digudang
         else if(empty($stock->pinjam)){
             return response()->json([
@@ -33,6 +34,7 @@ class PeminjamanController extends Controller
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
                 'kode_barang'   => $stock->kode_barang,
+                'keterangan'    => $stock->barang->keterangan,
                 'nomor_seri'    => $stock->nomor_seri
             ],201);
         }
@@ -43,11 +45,12 @@ class PeminjamanController extends Controller
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
                 'kode_barang'   => $stock->kode_barang,
+                'keterangan'    => $stock->barang->keterangan,
                 'nomor_seri'    => $stock->nomor_seri
             ],201);
         }
     }
-
+    
 
     public function pinjam(Request $request){
         $dataStock = Stock::with('pinjam')->where('kode_barang' ,$request->kode_barang)->first();

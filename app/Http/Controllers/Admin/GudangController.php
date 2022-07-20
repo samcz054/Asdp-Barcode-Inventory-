@@ -57,6 +57,7 @@ class GudangController extends Controller
 
         $dataBarang = new Gudang;
         $dataBarang->nama_barang = $request->input('nama_barang');
+        $dataBarang->keterangan = $request->input('keterangan');
 
         if ($request->hasFile('gambar')) {
             $request->file('gambar')->move('fotobarang/', $request->file('gambar')->getClientOriginalName());
@@ -118,6 +119,7 @@ class GudangController extends Controller
             $dataBarang->gambar = $request->file('gambar')->getClientOriginalName();
         }
         $dataBarang->nama_barang = $request->nama_barang;
+        $dataBarang->keterangan = $request->keterangan;
         $dataBarang->update();
 
         return redirect('admin/gudang/')->with('success, Data barang berhasil diperbarui');
