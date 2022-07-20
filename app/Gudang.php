@@ -12,9 +12,14 @@ class Gudang extends Model
     protected $fillable = [
         'gambar',
         'nama_barang',
+        'keterangan',
     ];
 
     public function stok(){
         return $this->hasMany(Stock::class);
+    }
+
+    public function peminjaman(){
+        return $this->hasMany(Peminjaman::class);
     }
 }

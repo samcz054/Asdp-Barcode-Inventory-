@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('login',[App\Http\Controllers\API\Auth\AuthController::class,'login']);
+
+Route::post('/peminjaman/pinjam',[App\Http\Controllers\API\PeminjamanController::class, 'pinjam']);
+Route::post('/peminjaman/kembali',[App\Http\Controllers\API\PeminjamanController::class, 'pengembalian']);
+
+
+// Route::post('/detail',[App\Http\Controllers\API\PeminjamanController::class, 'detailBarang']);
+Route::get('/detail/{kode_barang}',[App\Http\Controllers\API\PeminjamanController::class, 'detailBarang']);

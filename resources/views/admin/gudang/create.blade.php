@@ -6,7 +6,7 @@
         <!-- Content Row -->
         <a href="{{route('gudang.index')}}" class="btn btn-light btn-icon-split mb-3">
             <span class="icon text-gray-600">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left mt-1"></i>
             </span>
             <span class="text">Kembali</span>
         </a>
@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 {{-- Gambar Input--}}
                                 <div class="form-row">
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-md-12">
                                         <img class="img-preview img-fluid mb-2" width="150px" height="150px">
                                         <label class="form-label"></label>
                                         <input class="form-control" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
@@ -35,7 +35,7 @@
                                 {{-- end --}}
                                 {{-- Input Nama Barang --}}
                                 <div class="form-row">
-                                    <div class="col-md-6 search_select_box">
+                                    <div class="col-md-12 mb-3">
                                         <label>Nama Barang</label>
                                         <input name="nama_barang" type="text"
                                             class="form-control @error('nama_barang') is-invalid @enderror"
@@ -46,9 +46,30 @@
                                     </div>
                                 </div>
                                 {{-- end --}}
+
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Deskripsi / Keterangan </label>
+                                        <textarea type="text" name="keterangan" class="form-control" rows="8">{{ old('keterangan') }}</textarea>
+                                    </div>
+                                </div>
+
+                                {{-- Input Nomor Seri --}}
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Nomor Seri</label>
+                                        <input name="nomor_seri" type="text"
+                                            class="form-control @error('nomor_seri') is-invalid @enderror"
+                                            value="{{ old('nomor_seri') }}" />
+                                        @error('nomor_seri')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- end --}}
                             </div>
                             <div class="col-md-12 mt-3">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Simpan
                                 </button>
                             </div>

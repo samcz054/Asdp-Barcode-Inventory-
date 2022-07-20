@@ -1,36 +1,119 @@
+
+
 @extends('admin.layout.master')
 
+{{-- <style>
+    @media print{
+        .areaCetak :
+    }
+</style> --}}
+
 @section('content')
+
+    <!-- Modal hapus -->
+    <div class="modal fade" id="deleteStock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Perhatian !!!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{route('stock.destroy')}}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="stock_modal_delete_id" id="stock_id">
+                        Apakah anda yakin ingin menghapus ? 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-icon-split btn-sm" data-dismiss="modal">
+                            <span class="icon text-gray-600">
+                                <i class="fas fa-arrow-left mt-1"></i>
+                            </span>
+                            <span class="text">Tidak</span>
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-icon-split btn-sm">
+                            <span class="icon text-white-600">
+                                <i class="fas fa-trash mt-1"></i>
+                            </span>
+                            <span class="text">Iya</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
+
     <div class="container-fluid">
         <a href="{{route('gudang.index')}}" class="btn btn-light btn-icon-split mb-3">
             <span class="icon text-gray-600">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left mt-1"></i>
             </span>
             <span class="text">Kembali</span>
         </a>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                @if (session()->get('sukses'))
+                @if (session()->get('success'))
                     <div class="alert alert-success">
-                        {{ session()->get('sukses') }}
+                        {{ session()->get('success') }}
                     </div>
                 @endif
                 
 
-                <h4 class="m-0 font-weight-bold text-primary">Stok</h4>
+                <h4 class="m-0 font-weight-bold text-primary mb-4">Stok {{$dataBarang->nama_barang}}</h4>
+
+                <hr>
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            @if (isset($dataBarang->gambar))
+                                <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" width="50%" alt="gambar">    
+                            @else
+                                <img src="{{asset('fotobarang/default/default.jpg')}}"  width="50%" height="50%"  alt="gambar">
+                            @endif
+
+                            <h3 class="mt-4">{{$dataBarang->nama_barang}}</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>
+                                Deskripsi  :
+                            </h4>
+                            @if (isset($dataBarang->keterangan))
+                                <textarea disabled cols="50" rows="10">{{$dataBarang->keterangan}}</textarea>
+                            @else
+                                <textarea class="text-center" disabled rows="10">Tidak ada Keterangan</textarea>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                
+                
 
                 <div class="col-md-12 text-right">
                     <form id="tambahStok" method="POST" action="{{route('stock.store')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="number" name="barang_id" value="{{$dataBarang->id}}" style="display: none">
-                        <button type="submit" class="btn btn-primary btn-icon-split">
-                            <span class="icon text-white-600">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span class="text">Tambah</span>
-                        </button>
-                    </form>
-                            
+                        <div class="form-row d-flex">
+                            <div class="col-md-10">
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <button style="background-color: #1c63b7" type="submit" class="btn btn-primary btn-icon-split btn-sm mb-2">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-plus mt-1"></i>
+                                    </span>
+                                    <span class="text">Tambah stok</span>
+                                </button>
+                                <input class="form-control @error('nomor_seri') is-invalid @enderror" type="text" placeholder="Nomor Seri" name="nomor_seri">
+                                @error('nomor_seri')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </form>         
                 </div>
             </div>
             <div class="card-body">
@@ -41,7 +124,7 @@
                                 <th>No</th>
                                 <th>Nama Barang</th>
                                 <th>Kode_barang</th>
-                                <th>Tanggal Ditambahkan</th>
+                                <th>Nomor Seri</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -51,7 +134,7 @@
                                 <td>{{++$i}}</td>
                                 <td>{{$row->barang->nama_barang}}</td>
                                 <td>{{$row->kode_barang}}</td>
-                                <td>{{$row->tanggal_ditambahkan}}</td>
+                                <td>{{$row->nomor_seri}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">
                                         <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
@@ -63,13 +146,7 @@
                                             <button type="button" class="dropdown-item cetakBarcode" data-id="{{ $row->id }}">
                                                 Cetak Barcode
                                             </button>
-                                            <form action="{{route('stock.destroy',$row->id)}}" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="dropdown-item" type="submit">
-                                                    <span class="text">Hapus</span>
-                                                </button>
-                                            </form>
+                                            <button type="button" value="{{$row->id}}" class="dropdown-item hapusStockBtn" data-toggle="modal" data-target="#deleteStock" >Hapus</button> 
                                         </div>
                                     </div>
                                 </td>
@@ -78,7 +155,7 @@
 
                             {{-- Modals cetak barcode --}}
                             <div class="modal fade-scale" id="cetakBarcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                     <h6 class="modal-title" id="exampleModalLongTitle">Cetak Barcode</h6>
@@ -149,6 +226,18 @@
         function cetak(){
             window.print();
         }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.hapusStockBtn').click(function(e){
+                e.preventDefault();
+
+                var stock_id = $(this).val();
+                $('#stock_id').val(stock_id);
+                $('#deleteStock').model('show');
+            });
+        });
     </script>
 
 @endsection

@@ -19,7 +19,7 @@ class GudangController extends Controller
      */
     public function index()
     {
-        $jumlahStock = Stock::all();
+        $jumlahStock = Stock::doesntHave('pinjam')->get();
         $dataBarang = Gudang::all();
         return view('admin.gudang.index',compact('dataBarang','jumlahStock'));
     }
@@ -46,16 +46,18 @@ class GudangController extends Controller
             $request,
             [
                 'nama_barang'           => 'required',
+                'nomor_seri'            => 'required',
             ],
             [
                 'nama_barang.required'  => "Nama barang harus diisi",
+                'nomor_seri.required'   => "Nomor Seri harus diisi",
             ]
         );
 
 
         $dataBarang = new Gudang;
-
         $dataBarang->nama_barang = $request->input('nama_barang');
+        $dataBarang->keterangan = $request->input('keterangan');
 
         if ($request->hasFile('gambar')) {
             $request->file('gambar')->move('fotobarang/', $request->file('gambar')->getClientOriginalName());
@@ -68,12 +70,12 @@ class GudangController extends Controller
             $generateBarcode = IdGenerator::generate(['table' => 'stocks', 'field' => 'kode_barang', 'length' => 10, 'prefix' => $prefix]);   
             $stokBaru = new Stock;
             $stokBaru->barang_id = $dataBarang->id;
+            $stokBaru->nomor_seri = $request->input('nomor_seri');
             $stokBaru->kode_barang = $generateBarcode;
-            $stokBaru->tanggal_ditambahkan = Carbon::now();
             $stokBaru->save();
         }
 
-        return redirect('admin/gudang/');
+        return redirect('admin/gudang/')->with('success, Data barang berhasil ditambahkan');
     }
 
     /**
@@ -117,9 +119,10 @@ class GudangController extends Controller
             $dataBarang->gambar = $request->file('gambar')->getClientOriginalName();
         }
         $dataBarang->nama_barang = $request->nama_barang;
+        $dataBarang->keterangan = $request->keterangan;
         $dataBarang->update();
 
-        return redirect('admin/gudang/')->with('success, Data barang berhasil di update');
+        return redirect('admin/gudang/')->with('success, Data barang berhasil diperbarui');
     }
 
     /**
@@ -128,14 +131,14 @@ class GudangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $dataBarang = Gudang::find($id);
+        $dataBarang = Gudang::find($request->barang_modal_delete_id);
         if (File::exists('fotobarang/'.$dataBarang->gambar)) {
             File::delete('fotobarang/'.$dataBarang->gambar);
         }
         $dataBarang->delete();
 
-        return redirect('admin/gudang/')->with('success', 'Data barang berhasil di hapus');
+        return redirect('admin/gudang/')->with('success', 'Data barang berhasil dihapus');
     }
 }
