@@ -17,7 +17,7 @@
 
                         <!-- judul form-->
                         <div class="col-xl-12 mb-4">
-                            <h4 class="m-0 font-weight-bold text-primary">Tambah Barang</h4>
+                            <h4 class="m-0 font-weight-bold text-primary">Edit Barang</h4>
                         </div>
 
                         <!-- Form Data Pribbadi -->
@@ -30,7 +30,7 @@
                                     <div class="col-md-12 mb-3">
                                         <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" class="img-preview img-fluid mb-2" width="150px" height="150px">
                                         <label class="form-label"></label>
-                                        <input class="form-control" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
+                                        <input class="form-control" value="{{old('gambar', $dataBarang->gambar)}}" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
                                     </div>
 
                                 </div>
