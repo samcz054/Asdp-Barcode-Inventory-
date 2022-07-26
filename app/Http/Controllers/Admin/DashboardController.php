@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Pinjam;
+use App\Stock;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -15,7 +17,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $jumlahStockGudang = Stock::doesntHave('pinjam')->get();
+        $barangDipinjam = Pinjam::all();
+        $stockKeseluruhan = Stock::all();
+        $dataPeminjaman = Pinjam::orderBy('created_at', 'desc')->get();
+
+
+        return view('admin.dashboard.index',
+            compact(
+                'jumlahStockGudang',
+                'barangDipinjam',
+                'stockKeseluruhan',
+                'dataPeminjaman'
+            )
+        );
     }
 
     /**
