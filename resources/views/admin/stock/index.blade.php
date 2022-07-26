@@ -92,7 +92,7 @@
                             @if (isset($dataBarang->keterangan))
                                 <textarea disabled rows="10" style="width: 100%; max-width: 100%;">{{$dataBarang->keterangan}}</textarea>
                             @else
-                                <textarea class="text-center" disabled rows="10">Tidak ada Keterangan</textarea>
+                                <textarea disabled rows="10" style="width: 100%; max-width: 100%;">Tidak ada Keterangan</textarea>
                             @endif
                         </div>
                     </div>
