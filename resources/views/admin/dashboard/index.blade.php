@@ -47,7 +47,8 @@
                       <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                  Barang dipinjam saat ini</div>
+                                 Barang dipinjam saat ini
+                                </div>
                               <div class="h5 mb-0 font-weight-bold text-gray-800">{{$barangDipinjam->count()}}</div>
                           </div>
                           <div class="col-auto">
@@ -82,7 +83,11 @@
         <div class="container-fluid">
           <div class="card shadow mb-4">
               <div class="card-header py-3">
-                  <h5 class="m-0 font-weight-bold text-primary">Barang yang dipinjam saat ini</h5>
+                  <h5 class="m-0 font-weight-bold text-primary">
+                    <a href="{{route('peminjaman.index')}}">
+                        Barang yang dipinjam saat ini
+                    </a>
+                </h5>
               </div>
               <div class="card-body">
                   <div class="table-responsive">

@@ -57,6 +57,12 @@
     </li>
 
     <!-- Divider -->
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('user.index')}}">
+            <i style="color: #dadada" class="fas fa-fw fa-table"></i>
+            <span>User</span></a>
+    </li>
  
 
     <!-- Sidebar Toggler (Sidebar) -->

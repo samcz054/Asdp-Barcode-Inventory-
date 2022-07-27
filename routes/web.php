@@ -25,7 +25,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'Admin\DashboardController@index');
-    Route::resource('/users', 'Admin\UserController');
+    // Route::resource('/users', 'Admin\UserController');
+    Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.index');
+    Route::get('/user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('user.create');
+    Route::post('/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('user.store');
+    Route::get('/user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{id}/update', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/{id}/destroy', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
 
     // Gudang Routes
     Route::get('/gudang', [App\Http\Controllers\Admin\GudangController::class, 'index'])->name('gudang.index');

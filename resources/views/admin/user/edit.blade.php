@@ -1,9 +1,6 @@
 @extends('admin.layout.master')
 
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -11,7 +8,7 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-6 col-lg-6">
             <div class="card mb-4 ">
-                <div class="card-footer">
+                <div class="card-body">
 
                     <!-- judul form-->
 
@@ -29,42 +26,29 @@
 
                     @endif
 
+
                     <div class=" text-start">
-                        <h6 class="m-0 font-weight-bold text-primary mb-3">User Edit</h6>
+                        <h6 class="m-0 font-weight-bold text-primary mb-3">Edit User</h6>
                     </div>
 
                     <!-- isi form input -->
-                    <form action="{{route('users.update', $user->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                        @method('PATCH')
+                    <form action="{{route('user.update',$user->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        @method('PUT')
                         @csrf
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-12">
-
-                                    <label>nama</label>
-                                    <input type="text" name="name" class="form-control" value="{{$user->name}}" />
-                                    <label>Email</label>
-                                    <input type="text" name="txtemail_user" class="form-control" value="{{$user->email}}" />
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" name="name" class="form-control" value="{{$user->name}}" required/>
+                                    <label>Username</label>
+                                    <input type="text" name="username" class="form-control" value="{{$user->username}}" required/>
+                                    <label>E-mail</label>
+                                    <input type="email" name="email" class="form-control" value="{{$user->email}}" required/>
                                     <label>Password</label>
-                                    <input type="password" name="password_user" class="form-control" />
+                                    <input type="password" name="password" class="form-control" required/>
                                     <label>Konfirmasi Password</label>
-                                    <input type="password" name="konfirmasipassword_user" class="form-control" />
+                                    <input type="password" name="konfirmasi" class="form-control" required/>
 
-                                    <label for="select" class=" form-control-label">Permission</label>
-                                    <select name="role_user" id="select" class="form-control">
-
-                                        @foreach ($allRoles as $role)
-                                        <option value="{{$role->id}}" @if (in_array($role->id, $userRole))
-                                            selected
-
-                                            @endif
-                                            >
-                                            {{$role->name}}
-                                        </option>
-
-                                        @endforeach
-
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3">
