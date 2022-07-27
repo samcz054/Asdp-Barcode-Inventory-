@@ -59,7 +59,7 @@ class PeminjamanController extends Controller
         // jika barang dipinjam
         else if($stock->pinjam){
             return response()->json([
-                'nama_peminjam' => 'dipinjam ' . $stock->pinjam->nama_peminjam,
+                'nama_peminjam' => $stock->pinjam->nama_peminjam,
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
                 'kode_barang'   => $stock->kode_barang,
