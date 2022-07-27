@@ -10,10 +10,10 @@ class AuthController extends Controller
 {
     public function login(Request $request){
         $validateUser = $request->validate([
-            'email' => 'email | required',
+            'username' => 'required',
             'password' => 'required'
         ]);
-        $login = request(['email','password']);
+        $login = request(['username','password']);
 
         if(!Auth::attempt($login)){
             return response()->json([
@@ -30,10 +30,15 @@ class AuthController extends Controller
             'access_token'  => $tokenResult->accessToken,
             'token_id'      => $token->id,
             'user_id'       => $user->id,
+            'username'      => $user->username,
             'name'          => $user->name,
             'email'         => $user->email,
         ],200);
 
+    }
+
+    public function usename(){
+        return 'username';
     }
 
 }

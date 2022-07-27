@@ -49,4 +49,8 @@ class LoginController extends Controller
     {
         Auth::logoutOtherDevices(request('password'));
     }
+
+    public function username() {
+        return 'username';
+    }
 }

@@ -44,20 +44,31 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'name'          =>'required',
-            'email'         =>'required|email|unique:users,email',
-            'password'      =>'required|same:konfirmasi_password',
+        $this->validate(
+            $request,
+            [
+                'name'          => 'required',
+                'username'      => 'required|unique:users|min:5',
+                'email'         => 'required|email|unique:users,email',
+                'password'      => 'required|same:konfirmasi',
+            ],
+            [
+                'name.required'         => "Nama lengkap harus diisi",
+                'username.required'     => "Username harus diisi",
+                'email.required'        => "E-mail harus diisi",
+                'password.required'     => "Password harus diisi",
+            ]
+        );
+
+        $dataUser = User::create([
+            'name'          => $request->name,
+            'username'      => $request->username,
+            'email'         => $request->email,
+            'password'      => Hash::make($request->password)
         ]);
 
-        $user=New User();
-
-        $user->name =$request->name;
-        $user->email =$request->txtemail_user;
-        $user->password = Hash::make($request->password_user);
-        $user->save();
-
-        return redirect()->route('users.index')->with('sukses', 'User behasil Dibuat');;
+        $dataUser->save();
+        return redirect('admin/user/');
     }
 
     /**
@@ -97,18 +108,21 @@ class UserController extends Controller
         //
         $this->validate($request,[
             'name'                  => 'required',
+            'username'              => 'required',
             'email'                 => 'required|email',
+            'password'              => 'required|same:konfirmasi',
         ]);
 
-        $user=User::find($id);
-        $user->name=$request->name;
-        $user->email=$request->txtemail_user;
-        if($request->password_user !=null){
-            $user->password=Hash::make($request->password_user);
+        $user = User::find($id);
+        $user->name         = $request->name;
+        $user->username     = $request->username;
+        $user->email        = $request->email;
+        if ($request->password != null) {
+            $user->password = Hash::make($request->password);
         }
         $user->update();
 
-        return redirect()->route('users.index')->with('sukses, User berhasil di update');
+        return redirect()->route('user.index')->with('sukses, User berhasil di update');
     }
 
     /**
@@ -121,8 +135,8 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        $user ->delete();
+        $user->delete();
         
-        return redirect()->route('users.index')->with('sukses', 'User berhasil di hapus');
+        return redirect('admin/user/')->with('sukses', 'User berhasil di hapus');
     }
 }

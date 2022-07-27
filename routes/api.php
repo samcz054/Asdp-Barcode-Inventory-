@@ -26,3 +26,4 @@ Route::post('/peminjaman/kembali',[App\Http\Controllers\API\PeminjamanController
 
 // Route::post('/detail',[App\Http\Controllers\API\PeminjamanController::class, 'detailBarang']);
 Route::get('/detail/{kode_barang}',[App\Http\Controllers\API\PeminjamanController::class, 'detailBarang']);
+Route::get('/checkKode/{kode_barang}',[App\Http\Controllers\API\PeminjamanController::class, 'cekKodeBarang']);

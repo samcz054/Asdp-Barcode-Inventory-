@@ -45,7 +45,7 @@ class StockController extends Controller
         $this->validate(
             $request,
             [
-                'nomor_seri'             => 'required|unique:stocks',
+                'nomor_seri'             => 'required',
             ],
             [
                 'nomor_seri.required'   => "Harap isi nomor seri",

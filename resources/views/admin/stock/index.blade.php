@@ -2,11 +2,19 @@
 
 @extends('admin.layout.master')
 
-{{-- <style>
+<style>
     @media print{
-        .areaCetak :
+        body * {
+            visibility: hidden;
+            size: landscape;
+            transform: scale(115%);
+            align-content: center;
+        }
+        .areaCetak, .areaCetak * {
+            visibility: visible;
+        }
     }
-</style> --}}
+</style>
 
 @section('content')
 
@@ -72,7 +80,7 @@
                             @if (isset($dataBarang->gambar))
                                 <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" width="50%" alt="gambar">    
                             @else
-                                <img src="{{asset('fotobarang/default/default.jpg')}}"  width="50%" height="50%"  alt="gambar">
+                                <img src="{{asset('fotobarang/default/default.jpg')}}"  width="50%"  alt="gambar">
                             @endif
 
                             <h3 class="mt-4">{{$dataBarang->nama_barang}}</h3>
@@ -82,9 +90,9 @@
                                 Deskripsi  :
                             </h4>
                             @if (isset($dataBarang->keterangan))
-                                <textarea disabled cols="50" rows="10">{{$dataBarang->keterangan}}</textarea>
+                                <textarea disabled rows="10" style="width: 100%; max-width: 100%;">{{$dataBarang->keterangan}}</textarea>
                             @else
-                                <textarea class="text-center" disabled rows="10">Tidak ada Keterangan</textarea>
+                                <textarea disabled rows="10" style="width: 100%; max-width: 100%;">Tidak ada Keterangan</textarea>
                             @endif
                         </div>
                     </div>

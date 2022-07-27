@@ -16,6 +16,24 @@ use Psy\Command\HistoryCommand;
 class PeminjamanController extends Controller
 {
 
+    public function cekKodeBarang($kode_barang){
+        $stock = Stock::with('barang')->where('kode_barang',$kode_barang)->first();
+
+        if(empty($stock)){
+            return response()->json([
+                'error'     => 'Barang tidak ada dalam inventaris'
+            ],404);
+        } else if ($stock->pinjam){
+            return response()->json([
+                'error'     => 'Barang sudah dipinjam'
+            ],404);
+        }else if(empty($stock->pinjam)){
+            return response()->json([
+                'message'   => 'Barang siap dipinjam'
+            ],201);
+        }
+    }
+
     public function detailBarang($kode_barang){
 
         // $stock = Stock::with('barang')->where('kode_barang',$request->kode_barang)->first();
@@ -41,7 +59,7 @@ class PeminjamanController extends Controller
         // jika barang dipinjam
         else if($stock->pinjam){
             return response()->json([
-                'nama_peminjam' => $stock->pinjam->nama_peminjam,
+                'nama_peminjam' => 'dipinjam ' . $stock->pinjam->nama_peminjam,
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
                 'kode_barang'   => $stock->kode_barang,
