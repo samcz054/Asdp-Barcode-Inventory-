@@ -9,7 +9,7 @@
     <hr class="sidebar-divider my-0">
     
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active ">
+    <li class="nav-item {{ (request()->is('admin')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('/admin')}}">
             <i style="color: #dadada" class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dasboard</span>
@@ -25,15 +25,15 @@
     </div>
 
     <!--Nav Gudang -->
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('admin/gudang*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{route('gudang.index')}}">
-            <i style="color: #dadada" class="fas fa-fw fa-table"></i>
+            <i style="color: #dadada" class="fas fa-fw fa-warehouse"></i>
             <span>Gudang</span></a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('admin/peminjaman*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{route('peminjaman.index')}}">
-            <i style="color: #dadada" class="fas fa-fw fa-table"></i>
+            <i style="color: #dadada" class="fas fa-fw fa-boxes"></i>
             <span>Peminjaman</span></a>
     </li>
 
@@ -41,29 +41,30 @@
     <hr class="sidebar-divider">
 
     <!-- Heading Log Page -->
-    <li class="nav-item active">
+    <li class="nav-item {{ (request()->is('admin/log/peminjaman*') || request()->is('admin/log/pengembalian*')) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#histori" aria-expanded="true" aria-controls="histori">
-            <i style="color: #dadada" class="fas fa-fw fa fa-users"></i>
+            <i style="color: #dadada" class="fas fa-fw fa fa-history"></i>
             <span>Riwayat</span>
         </a>
 
         <div id="histori" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Log:</h6>
-                <a class="collapse-item" href="{{route('logPeminjaman.index')}}">Peminjaman</a>
-                <a class="collapse-item" href="{{route('logPengembalian.index')}}">Pengembalian</a>
+                <a class="collapse-item {{ (request()->is('admin/log/peminjaman*')) ? 'active' : '' }}" href="{{route('logPeminjaman.index')}}">Peminjaman</a>
+                <a class="collapse-item {{ (request()->is('admin/log/pengembalian*')) ? 'active' : '' }}" href="{{route('logPengembalian.index')}}">Pengembalian</a>
             </div>
         </div>
     </li>
 
     <!-- Divider -->
+    <hr class="sidebar-divider">
 
-    <li class="nav-item">
+    <li class="nav-item {{ (request()->is('admin/user*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{route('user.index')}}">
-            <i style="color: #dadada" class="fas fa-fw fa-table"></i>
+            <i style="color: #dadada" class="fas fa-fw fa-users"></i>
             <span>User</span></a>
     </li>
- 
+    
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
