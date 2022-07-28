@@ -27,7 +27,7 @@
                         </button>
                         <button type="submit" class="btn btn-danger btn-icon-split btn-sm">
                             <span class="icon text-white-600">
-                                <i class="fas fa-arrow-left"></i>
+                                <i class="fas fa-trash"></i>
                             </span>
                             <span class="text">Iya</span>
                         </button>
@@ -47,7 +47,7 @@
                     </div>
                 @endif
 
-                <h4 class="m-0 font-weight-bold text-primary">Daftar Inventory</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Daftar Inventaris</h4>
 
                 <div class="col-md-12 text-right">
                         <a style="background-color: #1c63b7" href="{{ route('gudang.create') }}" class="btn btn-primary btn-icon-split btn-sm">

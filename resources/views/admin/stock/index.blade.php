@@ -6,9 +6,6 @@
     @media print{
         body * {
             visibility: hidden;
-            size: landscape;
-            transform: scale(115%);
-            align-content: center;
         }
         .areaCetak, .areaCetak * {
             visibility: visible;
