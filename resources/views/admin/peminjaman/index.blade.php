@@ -155,7 +155,7 @@
                                             Action
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Detail Peminjaman</a>
+                                            {{-- <a class="dropdown-item" href="#">Detail Peminjaman</a> --}}
                                             <button type="button" value="{{$row->id}}" class="dropdown-item pengembalianBtn" data-toggle="modal" data-target="#barangKembali" >Barang Kembali</button> 
                                         </div>
                                     </div>
