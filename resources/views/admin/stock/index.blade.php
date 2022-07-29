@@ -6,6 +6,7 @@
     @media print{
         body * {
             visibility: hidden;
+            transform: scale(2);
         }
         .areaCetak, .areaCetak * {
             visibility: visible;
