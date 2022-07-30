@@ -83,9 +83,9 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             @if (isset($dataBarang->gambar))
-                                <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" width="50%" alt="gambar">    
+                                <img src="{{asset('fotobarang/'.$dataBarang->gambar)}}" width="50%" alt="gambar" style="max-width: 250px;max-height: 250px">    
                             @else
-                                <img src="{{asset('fotobarang/default/default.jpg')}}"  width="50%"  alt="gambar">
+                                <img src="{{asset('fotobarang/default/default.jpg')}}"  width="50%"  alt="gambar" style="max-width: 250px;max-height: 250px">
                             @endif
 
                             <h3 class="mt-4">{{$dataBarang->nama_barang}}</h3>

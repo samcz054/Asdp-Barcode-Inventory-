@@ -49,10 +49,13 @@ class GudangController extends Controller
             [
                 'nama_barang'           => 'required',
                 'nomor_seri'            => 'required',
+                'gambar'                => 'max:2048|mimes:jpg,jpeg.png',
             ],
             [
                 'nama_barang.required'  => "Nama barang harus diisi",
                 'nomor_seri.required'   => "Nomor Seri harus diisi",
+                'gambar.mimes'          => 'File harus jpg, jpeg, png',
+                'gambar.max'           => 'Max file 2 MB',
             ]
         );
 
@@ -123,6 +126,18 @@ class GudangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate(
+            $request,
+            [
+                'nama_barang'           => 'required',
+                'gambar'                => 'max:2048|mimes:jpg,jpeg,png',
+            ],
+            [
+                'nama_barang.required'  => "Nama barang harus diisi",
+                'gambar.max'           => 'Max file 2 MB',
+                'gambar.mimes'          => 'File harus jpg, jpeg, png',
+            ]
+        );
         $dataBarang = Gudang::find($id);
         if ($request->hasFile('gambar')) {
             if (File::exists('fotobarang/'.$dataBarang->gambar)) {

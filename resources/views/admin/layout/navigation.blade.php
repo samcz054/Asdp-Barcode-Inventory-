@@ -41,7 +41,7 @@
     <hr class="sidebar-divider">
 
     <!-- Heading Log Page -->
-    <li class="nav-item {{ (request()->is('admin/log/peminjaman*') || request()->is('admin/log/pengembalian*')) ? 'active' : '' }}">
+    <li class="nav-item {{ (request()->is('admin/log/peminjaman*') || request()->is('admin/log/pengembalian*') || request()->is('admin/log/stokBaru*')) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#histori" aria-expanded="true" aria-controls="histori">
             <i style="color: #dadada" class="fas fa-fw fa fa-history"></i>
             <span>Riwayat</span>
@@ -50,7 +50,7 @@
         <div id="histori" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Log:</h6>
-                <a class="collapse-item {{ (request()->is('admin/log/logStok*')) ? 'active' : '' }}" href="{{route('logStok.index')}}">Stok Baru</a>
+                <a class="collapse-item {{ (request()->is('admin/log/stokBaru*')) ? 'active' : '' }}" href="{{route('logStok.index')}}">Stok Baru</a>
                 <a class="collapse-item {{ (request()->is('admin/log/peminjaman*')) ? 'active' : '' }}" href="{{route('logPeminjaman.index')}}">Peminjaman</a>
                 <a class="collapse-item {{ (request()->is('admin/log/pengembalian*')) ? 'active' : '' }}" href="{{route('logPengembalian.index')}}">Pengembalian</a>
             </div>

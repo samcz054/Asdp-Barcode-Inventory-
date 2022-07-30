@@ -27,9 +27,12 @@
                                 {{-- Gambar Input--}}
                                 <div class="form-row">
                                     <div class="mb-3 col-md-12">
-                                        <img class="img-preview img-fluid mb-2" width="150px" height="150px">
+                                        <img class="img-preview img-fluid mb-2" width="150px" height="150px" style="max-width: 150px; max-height: 150px">
                                         <label class="form-label"></label>
-                                        <input class="form-control" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
+                                        <input class="form-control @error('gambar') is-invalid @enderror" type="file" name="gambar" id="gambar" onchange="previewImage()" placeholder="Upload Gambar">
+                                        @error('gambar')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 {{-- end --}}
