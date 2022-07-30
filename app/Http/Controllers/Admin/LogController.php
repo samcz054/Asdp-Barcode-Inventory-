@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\DataPeminjamanExport;
+use App\Exports\DataPengembalianExport;
+use App\Exports\DataStokBaruExport;
 use App\HistoryPeminjaman;
 use App\HistoryPengembalian;
+use App\HistoryStockBaru;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class LogController extends Controller
 {
@@ -17,5 +22,26 @@ class LogController extends Controller
     public function logPengembalian(){
         $logPengembalian = HistoryPengembalian::orderBy('created_at', 'desc')->get();
         return view ('admin.log.pengembalian',compact('logPengembalian'));
+    }
+
+    public function logStok(){
+        $logStock = HistoryStockBaru::orderBy('created_at', 'desc')->get();
+        return view ('admin.log.stokBaru',compact('logStock'));
+    }
+
+    // Export
+    public function fileExportStokBaru()
+    {
+        return Excel::download(new DataStokBaruExport, 'data-stock-ditambahkan.xlsx');
+    }
+
+    public function fileExportPeminjaman()
+    {
+        return Excel::download(new DataPeminjamanExport, 'data-peminjaman.xlsx');
+    }
+
+    public function fileExportPengembalian()
+    {
+        return Excel::download(new DataPengembalianExport, 'data-pengembalian.xlsx');
     }
 }

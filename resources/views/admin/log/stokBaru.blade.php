@@ -1,5 +1,4 @@
 
-
 @extends('admin.layout.master')
 
 @section('content')
@@ -20,10 +19,10 @@
                 @endif
                 
 
-                <h4 class="m-0 font-weight-bold text-primary">Log Pengembalian</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Log Stok Baru</h4>
 
                 <div class="col-md-12 text-right">
-                    <a style="background-color: #008507" href="{{ route('file-ExportPengembalian') }}" class="btn btn-primary btn-icon-split btn-sm">
+                    <a style="background-color: #008507" href="{{ route('file-ExportStokBaru') }}" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-600">
                             <i class="fas fa-file-export mt-1"></i>
                         </span>
@@ -37,22 +36,20 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Peminjam</th>
-                                <th>Nama barang</th>
+                                <th>Waktu dan Tanggal</th>
+                                <th>Nama Barang</th>
                                 <th>Nomor Seri</th>
                                 <th>Kode Barang</th>
-                                <th>Waktu dan Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($logPengembalian->sortBy('created_at') as $i=>$row)
+                            @foreach ($logStock as $i=>$row)
                             <tr>
                                 <td>{{++$i}}</td>
-                                <td>{{$row->nama_peminjam}}</td>
-                                <td>{{$row->stock->barang->nama_barang}}</td>
-                                <td>{{$row->stock->nomor_seri}}</td>
-                                <td>{{$row->stock->kode_barang}}</td>
-                                <td>{{$row->waktu}} - {{tanggal_indonesia($row->tanggal_dipinjam)}}</td>
+                                <td>{{$row->waktu}} - {{tanggal_indonesia($row->tanggal_ditambahkan)}}</td>
+                                <td>{{$row->barang->nama_barang}}</td>
+                                <td>{{$row->nomor_seri}}</td>
+                                <td>{{$row->kode_barang}}</td>
                             </tr>
                             @endforeach
                         </tbody>

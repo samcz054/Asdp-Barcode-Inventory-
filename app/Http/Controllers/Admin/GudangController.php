@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Gudang;
+use App\HistoryStockBaru;
 use App\Stock;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -73,6 +75,17 @@ class GudangController extends Controller
             $stokBaru->nomor_seri = $request->input('nomor_seri');
             $stokBaru->kode_barang = $generateBarcode;
             $stokBaru->save();
+            if ($stokBaru->save()) {
+                $waktu = new DateTime();
+            $tanggal_ditambahkan = Carbon::now();
+            $logStok = new HistoryStockBaru;
+            $logStok->barang_id = $stokBaru->barang_id;
+            $logStok->nomor_seri = $stokBaru->nomor_seri;
+            $logStok->kode_barang = $stokBaru->kode_barang;
+            $logStok->tanggal_ditambahkan = $tanggal_ditambahkan;
+            $logStok->waktu = $waktu->format('H:i:s');
+            $logStok->save();
+            }
         }
 
         return redirect('admin/gudang/')->with('success, Data barang berhasil ditambahkan');

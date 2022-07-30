@@ -93,7 +93,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="{{route('gudang.edit',$row->id)}}">Edit</a>
                                             <a class="dropdown-item" href="{{route('stock.index',$row->id)}}">Lihat Stok</a>
-                                            <button type="button" value="{{$row->id}}" class="dropdown-item hapusBarangBtn" data-toggle="modal" data-target="#deleteBarang" >Hapus</button>    
+                                            <button type="button" value="{{$row->id}}" class="dropdown-item hapusBarangBtn" data-toggle="modal" data-target="#deleteBarang" >Hapus Barang</button>    
                                         </div>
                                     </div>
                                 </td>

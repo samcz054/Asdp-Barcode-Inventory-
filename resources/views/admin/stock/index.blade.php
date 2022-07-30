@@ -4,14 +4,14 @@
 
 <style>
     @media print{
-        @page{
+        /* @page{
             display: flex;
             transform : scale(2);
             margin-top: 60mm;
             margin-bottom: 50mm;
             margin-left: 1mm;
             margin-right: 1mm;
-        }
+        } */
         body * {
             visibility: hidden;
         }

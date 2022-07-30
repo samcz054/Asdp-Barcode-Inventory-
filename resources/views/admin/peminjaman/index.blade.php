@@ -108,12 +108,7 @@
                 <h4 class="m-0 font-weight-bold text-primary">Data Peminjaman</h4>
 
                 <div class="col-md-12 text-right">
-                    {{-- <a style="background-color: #1c63b7" href="{{ route('peminjaman.create') }}" class="btn btn-primary btn-icon-split">
-                        <span class="icon text-white-600">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="text">Pinjam Barang</span>
-                    </a> --}}
+
                     {{-- trigger modal --}}
                     <button style="background-color: #1c63b7" type="button" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#pinjam">
                         <span class="icon text-white-600">
