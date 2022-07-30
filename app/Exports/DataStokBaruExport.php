@@ -15,6 +15,7 @@ class DataStokBaruExport implements FromCollection, ShouldAutoSize, WithMapping,
     */
     public function headings(): array{
         return [
+            'No',
             'Waktu',
             'Tanggal',
             'Nama barang',
@@ -25,12 +26,13 @@ class DataStokBaruExport implements FromCollection, ShouldAutoSize, WithMapping,
 
     public function collection()
     {
-        return HistoryStockbaru::with('barang')->orderBy('created_at', 'desc')->get();
+        return HistoryStockbaru::with('barang')->get();
     }
     
     public function map($logStock): array
     {
         return [
+            $logStock->id,
             $logStock->waktu,
             $logStock->tanggal_ditambahkan,
             $logStock->barang->nama_barang,
