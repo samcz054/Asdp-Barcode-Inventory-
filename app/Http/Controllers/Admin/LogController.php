@@ -32,7 +32,7 @@ class LogController extends Controller
     // Export
     public function fileExportStokBaru()
     {
-        return Excel::download(new DataStokBaruExport, 'data-stock-ditambahkan.xlsx');
+        return Excel::download(new DataStokBaruExport, 'data-stock.xlsx');
     }
 
     public function fileExportPeminjaman()

@@ -26,7 +26,7 @@ class DataStokBaruExport implements FromCollection, ShouldAutoSize, WithMapping,
 
     public function collection()
     {
-        return HistoryStockbaru::with('barang')->get();
+        return HistoryStockBaru::with('barang')->get();
     }
     
     public function map($logStock): array
