@@ -2,17 +2,18 @@
 
 namespace App\Exports;
 
-use App\HistoryStockbaru;
+use App\HistoryStockBaru;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class DataStokBaruExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
+class DataStokExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
+
     public function headings(): array{
         return [
             'No',
@@ -23,12 +24,11 @@ class DataStokBaruExport implements FromCollection, ShouldAutoSize, WithMapping,
             'Kode Barang',
         ];
     }
-
     public function collection()
     {
         return HistoryStockBaru::with('barang')->get();
     }
-    
+
     public function map($logStock): array
     {
         return [

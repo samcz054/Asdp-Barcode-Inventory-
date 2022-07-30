@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\DataPeminjamanExport;
 use App\Exports\DataPengembalianExport;
-use App\Exports\DataStokBaruExport;
+use App\Exports\DataStokExport;
 use App\HistoryPeminjaman;
 use App\HistoryPengembalian;
 use App\HistoryStockBaru;
@@ -32,7 +32,7 @@ class LogController extends Controller
     // Export
     public function fileExportStokBaru()
     {
-        return Excel::download(new DataStokBaruExport, 'data-stock.xlsx');
+        return Excel::download(new DataStokExport, 'data-stock.xlsx');
     }
 
     public function fileExportPeminjaman()
