@@ -10,9 +10,8 @@ use App\Pinjam;
 use App\Stock;
 use Carbon\Carbon;
 use DateTime;
-use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Validator;
-use Picqer\Barcode\BarcodeGeneratorHTML;
+
 
 class PeminjamanController extends Controller
 {
