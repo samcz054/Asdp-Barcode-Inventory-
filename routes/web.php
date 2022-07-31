@@ -25,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'Admin\DashboardController@index');
-    // Route::resource('/users', 'Admin\UserController');
+
     Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.index');
     Route::get('/user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('user.create');
     Route::post('/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('user.store');
@@ -49,6 +49,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/stock/destroy/', [App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
     
     Route::get('/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('/peminjaman/{id}/details', [App\Http\Controllers\Admin\PeminjamanController::class, 'show'])->name('peminjaman.details');
     Route::get('/peminjaman/create', [App\Http\Controllers\Admin\PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/peminjaman/store', [App\Http\Controllers\Admin\PeminjamanController::class, 'store'])->name('peminjaman.store');
     Route::post('/peminjaman/destroy', [App\Http\Controllers\Admin\PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');

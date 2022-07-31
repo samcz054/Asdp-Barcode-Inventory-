@@ -10,7 +10,9 @@ use App\Pinjam;
 use App\Stock;
 use Carbon\Carbon;
 use DateTime;
+use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Validator;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class PeminjamanController extends Controller
 {
@@ -111,7 +113,10 @@ class PeminjamanController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $dataPeminjaman = Pinjam::find($id);
+
+        return view('admin.peminjaman.detail',compact('dataPeminjaman'));
     }
 
     /**
