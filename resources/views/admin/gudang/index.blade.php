@@ -14,9 +14,10 @@
                 </div>
                 <form action="{{route('gudang.destroy')}}" method="POST">
                     @csrf
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
                         <input type="hidden" name="barang_modal_delete_id" id="barang_id">
-                        Apakah anda yakin ingin menghapus ? 
+                        Peringatan menghapus barang akan menghapus keseluruhan stok. Apakah anda yakin ingin menghapus ?
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light btn-icon-split btn-sm" data-dismiss="modal">
