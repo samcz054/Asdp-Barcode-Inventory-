@@ -5,16 +5,22 @@ namespace App\Http\Controllers\API;
 use App\HistoryPeminjaman;
 use App\HistoryPengembalian;
 use App\Http\Controllers\Controller;
+use App\Pegawai;
 use App\Pinjam;
 use App\Stock;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Psy\Command\HistoryCommand;
+use Illuminate\Support\Facades\DB;
 
 class PeminjamanController extends Controller
 {
+
+    public function getPegawai(){
+        $dataPegawai = Pegawai::all();
+
+        return response()->json($dataPegawai,200);
+    }
 
     public function cekKodeBarang($kode_barang){
         $stock = Stock::with('barang')->where('kode_barang',$kode_barang)->first();

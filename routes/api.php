@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login',[App\Http\Controllers\API\Auth\AuthController::class,'login']);
 
+Route::get('dataPegawai',[App\Http\Controllers\API\PeminjamanController::class,'getPegawai']);
+
 Route::post('/peminjaman/pinjam',[App\Http\Controllers\API\PeminjamanController::class, 'pinjam']);
 Route::post('/peminjaman/kembali',[App\Http\Controllers\API\PeminjamanController::class, 'pengembalian']);
 

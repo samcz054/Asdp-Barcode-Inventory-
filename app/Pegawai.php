@@ -15,4 +15,8 @@ class Pegawai extends Model
         'divisi',
         'nik',
     ];
+
+    public function pegawai(){
+        return $this->hasMany(Pinjam::class,'pegawai_id');
+    }
 }

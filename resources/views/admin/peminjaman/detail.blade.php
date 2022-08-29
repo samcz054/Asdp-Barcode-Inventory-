@@ -52,12 +52,15 @@
                 <div class="form-group">
                     <div class="form-row" style="margin-right: 2cm; margin-left: 2cm;">
                         <div class="col-md-6">
-                            <pre><h6>Dipinjam Oleh    : {{$dataPeminjaman->nama_peminjam}}</h6></pre>
+                            <pre><h6>Dipinjam Oleh    : {{$dataPeminjaman->pegawai->nama_lengkap}}</h6></pre>
+                            <pre><h6>Model / Type     : </h6></pre>
                             <pre><h6>Kode Barang      : {{$dataPeminjaman->stock->kode_barang}}</h6></pre>
+                            
                         </div>
                         <div class="col-md-6">
-                            <pre><h6>Tanggal dipinjam : {{$dataPeminjaman->waktu}} {{tanggal_indonesia($dataPeminjaman->tanggal_dipinjam)}}</h6></pre>
+                            <pre><h6>Divisi           : {{$dataPeminjaman->pegawai->jabatan}} {{$dataPeminjaman->pegawai->divisi}}</h6></pre>
                             <pre><h6>Nomor Seri       : {{$dataPeminjaman->stock->nomor_seri}}</h6></pre>
+                            <pre><h6>Tanggal dipinjam : {{$dataPeminjaman->waktu}} {{tanggal_indonesia($dataPeminjaman->tanggal_dipinjam)}}</h6></pre>
                         </div>
                     </div>
                     <hr class="mt-3 mb-3">

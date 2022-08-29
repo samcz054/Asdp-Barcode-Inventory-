@@ -25,9 +25,19 @@
 
                             <div class="form-row">
                                 <div class="col-md-12">
-                                    <label class="text-start">Nama peminjam</label>
+                                    {{-- <label class="text-start">Nama peminjam</label>
                                     <input name="nama_peminjam" type="text"
-                                        class="nama_peminjam form-control"/>
+                                        class="nama_peminjam form-control"/> --}}
+                                    <label>Nama Peminjam</label>
+                                    <select id="peminjam" name="pegawai_id" class="pegawai_id form-control" style="width: 100%">
+                                        <option value="">-Data Pegawai-</option>
+                                        @foreach($dataPegawai as $item)
+                                        <option value="{{$item->id}}" {{old('pegawai_id') == $item->id ? 'selected' : null}}>
+                                            {{$item->nama_lengkap}} - {{$item->jabatan}} {{$item->divisi}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <label>Nama Barang</label>
@@ -138,7 +148,7 @@
                             @foreach ($dataPeminjaman as $i=>$row)
                             <tr>
                                 <td>{{++$i}}</td>
-                                <td>{{$row->nama_peminjam}}</td>
+                                <td>{{$row->pegawai->nama_lengkap}} - {{$row->pegawai->jabatan}} {{$row->pegawai->divisi}}</td>
                                 <td>{{$row->stock->barang->nama_barang}}</td>
                                 <td>{{$row->stock->nomor_seri}}</td>
                                 <td>{{$row->stock->kode_barang}}</td>
@@ -168,6 +178,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#peminjam').select2();
             $('#barang').select2();
         }); 
     </script>
@@ -177,7 +188,7 @@
             $(document).on('click', '.pinjam_barang', function(e){
                 e.preventDefault();
                 var data = {
-                    'nama_peminjam' : $('.nama_peminjam').val(),
+                    'pegawai_id'    : $('.pegawai_id').val(),
                     'stock_id'      : $('.stock_id').val(),
                 }
 

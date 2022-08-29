@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\HistoryPeminjaman;
 use App\HistoryPengembalian;
 use App\Http\Controllers\Controller;
+use App\Pegawai;
 use Illuminate\Http\Request;
 use App\Pinjam;
 use App\Stock;
@@ -22,9 +23,10 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
+        $dataPegawai = Pegawai::all();
         $dataStock = Stock::doesntHave('pinjam')->get();
         $dataPeminjaman = Pinjam::orderBy('created_at', 'desc')->get();
-        return view('admin.peminjaman.index',compact('dataPeminjaman','dataStock'));
+        return view('admin.peminjaman.index',compact('dataPeminjaman','dataStock','dataPegawai'));
     }   
 
     /**
@@ -49,12 +51,12 @@ class PeminjamanController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-                'nama_peminjam'             => 'required',
-                'stock_id'                  => 'required',
+                'pegawai_id'            => 'required',
+                'stock_id'              => 'required',
             ],
             $message = [
-                'nama_peminjam.required' => 'Nama peminjam harus diisi', 
-                'stock_id.required' =>      'Pilih barang yang akan dipinjam', 
+                'pegawai_id.required'   => 'Nama peminjam harus diisi', 
+                'stock_id.required'     => 'Pilih barang yang akan dipinjam', 
             ]
         );
 
@@ -68,19 +70,19 @@ class PeminjamanController extends Controller
             $dataPeminjaman = new Pinjam;
             $tanggal_dipinjam = Carbon::now();
             $waktu = new DateTime();
-            $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
+            $dataPeminjaman->pegawai_id = $request->pegawai_id;
             $dataPeminjaman->stock_id =  $request->stock_id;
             $dataPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
             $dataPeminjaman->waktu = $waktu->format('H:i:s');
             $dataPeminjaman->save();
-            if ($dataPeminjaman->save()){
-                $logPeminjaman = new HistoryPeminjaman;
-                $logPeminjaman->nama_peminjam = $dataPeminjaman->nama_peminjam;
-                $logPeminjaman->stock_id = $dataPeminjaman->stock_id;
-                $logPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
-                $logPeminjaman->waktu = $waktu->format('H:i:s');
-                $logPeminjaman->save();
-            }
+            // if ($dataPeminjaman->save()){
+            //     $logPeminjaman = new HistoryPeminjaman;
+            //     $logPeminjaman->pegawai_id = $dataPeminjaman->pegawai_id;
+            //     $logPeminjaman->stock_id = $dataPeminjaman->stock_id;
+            //     $logPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
+            //     $logPeminjaman->waktu = $waktu->format('H:i:s');
+            //     $logPeminjaman->save();
+            // }
             return response()->json([
                 'status'    => 200,
                 'message'   => 'Peminjaman berhasil dilakukan'

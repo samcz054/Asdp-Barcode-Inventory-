@@ -11,11 +11,15 @@ class Pinjam extends Model
 
     protected $fillable = [
         'stock_id',
-        'nama_peminjam',
+        'pegawai_id',
         'tanggal_dipinjam'
     ];
 
     public function stock(){
         return $this->belongsTo(Stock::class,'stock_id','id');
+    }
+
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class,'pegawai_id','id');
     }
 }
