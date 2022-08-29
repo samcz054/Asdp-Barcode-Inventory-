@@ -60,6 +60,17 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+
+    <!-- Data Pegawai -->
+    <li class="nav-item {{ (request()->is('admin/pegawai*')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('pegawai.index')}}">
+            <i style="color: #dadada" class="fas fa-fw fa-user-tie"></i>
+            <span>Pegawai</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
     <li class="nav-item {{ (request()->is('admin/user*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{route('user.index')}}">
             <i style="color: #dadada" class="fas fa-fw fa-users"></i>

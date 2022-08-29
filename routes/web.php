@@ -33,6 +33,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::put('/user/{id}/update', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}/destroy', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
 
+    // Pegawai Routes
+    Route::get('/pegawai',[App\Http\Controllers\Admin\PegawaiController::class,'index'])->name('pegawai.index');
+    Route::get('/pegawai/create',[App\Http\Controllers\Admin\PegawaiController::class,'create'])->name('pegawai.create');
+    Route::post('/pegawai/store',[App\Http\Controllers\Admin\PegawaiController::class,'store'])->name('pegawai.store');
+    Route::get('/pegawai/{id}/edit',[App\Http\Controllers\Admin\PegawaiController::class,'edit'])->name('pegawai.edit');
+    Route::put('/pegawai/{id}/update',[App\Http\Controllers\Admin\PegawaiController::class,'update'])->name('pegawai.update');
+    Route::post('/pegawai/destroy',[App\Http\Controllers\Admin\PegawaiController::class,'destroy'])->name('pegawai.destroy');
+
     // Gudang Routes
     Route::get('/gudang', [App\Http\Controllers\Admin\GudangController::class, 'index'])->name('gudang.index');
     Route::get('/gudang/create', [App\Http\Controllers\Admin\GudangController::class, 'create'])->name('gudang.create');
@@ -48,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/stock/store', [App\Http\Controllers\Admin\StockController::class, 'store'])->name('stock.store');
     Route::post('/stock/destroy/', [App\Http\Controllers\Admin\StockController::class, 'destroy'])->name('stock.destroy');
     
+    // Peminjaman Routes
     Route::get('/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'index'])->name('peminjaman.index');
     Route::get('/peminjaman/{id}/details', [App\Http\Controllers\Admin\PeminjamanController::class, 'show'])->name('peminjaman.details');
     Route::get('/peminjaman/create', [App\Http\Controllers\Admin\PeminjamanController::class, 'create'])->name('peminjaman.create');

@@ -16,9 +16,10 @@ class CreatePinjamsTable extends Migration
         Schema::create('pinjams', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('stock_id');
-            $table->string('nama_peminjam');
+            $table->unsignedBigInteger('pegawai_id');
             $table->date('tanggal_dipinjam');
             $table->time('waktu');
+            $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
