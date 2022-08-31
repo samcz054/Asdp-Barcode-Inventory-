@@ -65,8 +65,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     // Log transaksi
     Route::get('/log/stokBaru',[App\Http\Controllers\Admin\LogController::class, 'logStok'])->name('logStok.index');
-    Route::get('/log/peminjaman',[App\Http\Controllers\Admin\LogController::class, 'logPeminjaman'])->name('logPeminjaman.index');
-    Route::get('/log/pengembalian',[App\Http\Controllers\Admin\LogController::class, 'logPengembalian'])->name('logPengembalian.index');
+    Route::get('/log/peminjaman_pengembalian',[App\Http\Controllers\Admin\LogController::class, 'logTransaksi'])->name('logTransaksi.index');
+
 
     // Export log
     Route::get('file-export-stokBaru', [App\Http\Controllers\Admin\LogController::class, 'fileExportStokBaru'])->name('file-ExportStokBaru');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\HistoryPeminjaman;
 use App\HistoryPengembalian;
 use App\Http\Controllers\Controller;
+use App\LogTransaksi;
 use App\Pegawai;
 use Illuminate\Http\Request;
 use App\Pinjam;
@@ -75,14 +76,15 @@ class PeminjamanController extends Controller
             $dataPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
             $dataPeminjaman->waktu = $waktu->format('H:i:s');
             $dataPeminjaman->save();
-            // if ($dataPeminjaman->save()){
-            //     $logPeminjaman = new HistoryPeminjaman;
-            //     $logPeminjaman->pegawai_id = $dataPeminjaman->pegawai_id;
-            //     $logPeminjaman->stock_id = $dataPeminjaman->stock_id;
-            //     $logPeminjaman->tanggal_dipinjam = $tanggal_dipinjam;
-            //     $logPeminjaman->waktu = $waktu->format('H:i:s');
-            //     $logPeminjaman->save();
-            // }
+            if ($dataPeminjaman->save()){
+                $logTransaksi = new LogTransaksi();
+                $logTransaksi->keterangan = "Peminjaman";
+                $logTransaksi->pegawai_id = $dataPeminjaman->pegawai_id;
+                $logTransaksi->stock_id = $dataPeminjaman->stock_id;
+                $logTransaksi->tanggal_dipinjam = $tanggal_dipinjam;
+                $logTransaksi->waktu = $waktu->format('H:i:s');
+                $logTransaksi->save();
+            }
             return response()->json([
                 'status'    => 200,
                 'message'   => 'Peminjaman berhasil dilakukan'
@@ -157,12 +159,13 @@ class PeminjamanController extends Controller
         $dataPeminjaman = Pinjam::find($request->pengembalian_barang_id);
 
         if ($dataPeminjaman->delete()){
-            $logPengembalian = new HistoryPengembalian;
-            $logPengembalian->nama_peminjam = $dataPeminjaman->nama_peminjam;
-            $logPengembalian->stock_id = $dataPeminjaman->stock_id;
-            $logPengembalian->tanggal_dipinjam = $tanggal_dipinjam;
-            $logPengembalian->waktu = $waktu->format('H:i:s');
-            $logPengembalian->save();
+            $logTransaksi = new LogTransaksi();
+            $logTransaksi->keterangan = "Pengembalian";
+            $logTransaksi->pegawai_id = $dataPeminjaman->pegawai_id;
+            $logTransaksi->stock_id = $dataPeminjaman->stock_id;
+            $logTransaksi->tanggal_dipinjam = $tanggal_dipinjam;
+            $logTransaksi->waktu = $waktu->format('H:i:s');
+            $logTransaksi->save();
         }
         $dataPeminjaman->delete();
         

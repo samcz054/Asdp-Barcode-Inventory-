@@ -16,7 +16,11 @@ class Pegawai extends Model
         'nik',
     ];
 
-    public function pegawai(){
+    public function pinjam(){
         return $this->hasMany(Pinjam::class,'pegawai_id');
+    }
+
+    public function logTransaksi(){
+        return $this->hasMany(LogTransaksi::class,'pegawai_id');
     }
 }

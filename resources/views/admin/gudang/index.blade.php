@@ -67,6 +67,7 @@
                                 <th style="width: 12px">No</th>
                                 <th>Gambar</th>
                                 <th>Nama Barang</th>
+                                <th>Model / Type</th>
                                 <th style="width: 12px">Stok</th>
                                 <th>Action</th>
                             </tr>
@@ -83,6 +84,7 @@
                                     @endif
                                 </td>
                                 <td>{{$row->nama_barang}}</td>
+                                <td>{{$row->model}}</td>
                                 <td>{{$jumlahStock->where('barang_id',$row->id)->count()}}</td>
                                 <td>
                                     <div class="dropdown no-arrow mb-4">

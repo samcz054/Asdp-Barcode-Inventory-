@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoryPeminjamenTable extends Migration
+class CreateLogTransaksisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateHistoryPeminjamenTable extends Migration
      */
     public function up()
     {
-        Schema::create('history_peminjamen', function (Blueprint $table) {
+        Schema::create('log_transaksis', function (Blueprint $table) {
             $table->id();
+            $table->string('keterangan');
             $table->unsignedBigInteger('stock_id');
-            $table->string('nama_peminjam');
+            $table->unsignedBigInteger('pegawai_id');
             $table->date('tanggal_dipinjam');
             $table->time('waktu');
             $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateHistoryPeminjamenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history_peminjamen');
+        Schema::dropIfExists('log_transaksis');
     }
 }

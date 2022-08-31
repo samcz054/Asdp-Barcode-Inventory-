@@ -17,6 +17,7 @@ class CreateGudangsTable extends Migration
             $table->id();
             $table->string('gambar')->nullable();
             $table->string('nama_barang');
+            $table->string('model');
             $table->longText('keterangan')->nullable();
             $table->timestamps();
         });

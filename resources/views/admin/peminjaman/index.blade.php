@@ -136,7 +136,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Peminjam Saat ini</th>
+                                <th>Nama Peminjam</th>
                                 <th>Nama Barang</th>
                                 <th>Nomor Seri</th>
                                 <th>Kode Barang</th>

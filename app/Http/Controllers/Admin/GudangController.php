@@ -49,20 +49,23 @@ class GudangController extends Controller
             [
                 'nama_barang'           => 'required',
                 'nomor_seri'            => 'required',
+                'model'                 => 'required',  
                 'gambar'                => 'max:2048|mimes:jpg,jpeg.png',
             ],
             [
                 'nama_barang.required'  => "Nama barang harus diisi",
                 'nomor_seri.required'   => "Nomor Seri harus diisi",
+                'model.required'        => 'Model/Type barang tidak boleh kosong',
                 'gambar.mimes'          => 'File harus jpg, jpeg, png',
-                'gambar.max'           => 'Max file 2 MB',
+                'gambar.max'            => 'Max file 2 MB',
             ]
         );
 
 
         $dataBarang = new Gudang;
-        $dataBarang->nama_barang = $request->input('nama_barang');
-        $dataBarang->keterangan = $request->input('keterangan');
+        $dataBarang->nama_barang    = $request->input('nama_barang');
+        $dataBarang->keterangan     = $request->input('keterangan');
+        $dataBarang->model          = $request->input('model');
 
         if ($request->hasFile('gambar')) {
             $request->file('gambar')->move('fotobarang/', $request->file('gambar')->getClientOriginalName());
@@ -80,14 +83,14 @@ class GudangController extends Controller
             $stokBaru->save();
             if ($stokBaru->save()) {
                 $waktu = new DateTime();
-            $tanggal_ditambahkan = Carbon::now();
-            $logStok = new HistoryStockBaru;
-            $logStok->barang_id = $stokBaru->barang_id;
-            $logStok->nomor_seri = $stokBaru->nomor_seri;
-            $logStok->kode_barang = $stokBaru->kode_barang;
-            $logStok->tanggal_ditambahkan = $tanggal_ditambahkan;
-            $logStok->waktu = $waktu->format('H:i:s');
-            $logStok->save();
+                $tanggal_ditambahkan = Carbon::now();
+                $logStok = new HistoryStockBaru;
+                $logStok->barang_id = $stokBaru->barang_id;
+                $logStok->nomor_seri = $stokBaru->nomor_seri;
+                $logStok->kode_barang = $stokBaru->kode_barang;
+                $logStok->tanggal_ditambahkan = $tanggal_ditambahkan;
+                $logStok->waktu = $waktu->format('H:i:s');
+                $logStok->save();
             }
         }
 

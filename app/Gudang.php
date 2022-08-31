@@ -12,6 +12,7 @@ class Gudang extends Model
     protected $fillable = [
         'gambar',
         'nama_barang',
+        'model',
         'keterangan',
     ];
 

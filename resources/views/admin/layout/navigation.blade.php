@@ -51,8 +51,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Log:</h6>
                 <a class="collapse-item {{ (request()->is('admin/log/stokBaru*')) ? 'active' : '' }}" href="{{route('logStok.index')}}">Stok Baru</a>
-                <a class="collapse-item {{ (request()->is('admin/log/peminjaman*')) ? 'active' : '' }}" href="{{route('logPeminjaman.index')}}">Peminjaman</a>
-                <a class="collapse-item {{ (request()->is('admin/log/pengembalian*')) ? 'active' : '' }}" href="{{route('logPengembalian.index')}}">Pengembalian</a>
+                <a class="collapse-item {{ (request()->is('admin/log/peminjaman_pengembalian*')) ? 'active' : '' }}" href="{{route('logTransaksi.index')}}">Transaksi</a>
             </div>
         </div>
     </li>
