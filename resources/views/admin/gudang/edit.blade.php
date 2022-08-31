@@ -51,6 +51,19 @@
                                     </div>
                                 </div>
                                 {{-- end --}}
+                                {{-- Input Nama Barang --}}
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Model / Type</label>
+                                        <input name="model" type="text"
+                                            class="form-control @error('model') is-invalid @enderror"
+                                            value="{{ old('model',$dataBarang->model) }}" />
+                                        @error('model')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- end --}}
                                 {{-- Input Keterangan Barang --}}
                                 <div class="form-row">
                                     <div class="col-md-12">

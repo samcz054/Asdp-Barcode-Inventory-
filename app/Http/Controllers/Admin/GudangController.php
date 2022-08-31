@@ -133,11 +133,13 @@ class GudangController extends Controller
             $request,
             [
                 'nama_barang'           => 'required',
+                'model'                 => 'required',
                 'gambar'                => 'max:2048|mimes:jpg,jpeg,png',
             ],
             [
                 'nama_barang.required'  => "Nama barang harus diisi",
-                'gambar.max'           => 'Max file 2 MB',
+                'model.required'        => "Model barang tidak boleh kosong",
+                'gambar.max'            => 'Max file 2 MB',
                 'gambar.mimes'          => 'File harus jpg, jpeg, png',
             ]
         );
@@ -149,8 +151,9 @@ class GudangController extends Controller
             $request->file('gambar')->move('fotobarang/', $request->file('gambar')->getClientOriginalName());
             $dataBarang->gambar = $request->file('gambar')->getClientOriginalName();
         }
-        $dataBarang->nama_barang = $request->nama_barang;
-        $dataBarang->keterangan = $request->keterangan;
+        $dataBarang->nama_barang    = $request->nama_barang;
+        $dataBarang->model          = $request->model;
+        $dataBarang->keterangan     = $request->keterangan;
         $dataBarang->update();
 
         return redirect('admin/gudang/')->with('success, Data barang berhasil diperbarui');
