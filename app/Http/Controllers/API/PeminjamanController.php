@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\HistoryPeminjaman;
-use App\HistoryPengembalian;
 use App\Http\Controllers\Controller;
+use App\LogTransaksi;
 use App\Pegawai;
 use App\Pinjam;
 use App\Stock;
@@ -65,7 +64,7 @@ class PeminjamanController extends Controller
         // jika barang dipinjam
         else if($stock->pinjam){
             return response()->json([
-                'nama_peminjam' => $stock->pinjam->nama_peminjam,
+                'nama_peminjam' => $stock->pinjam->pegawai->nama_lengkap." - ".$stock->pinjam->pegawai->jabatan." ".$stock->pinjam->pegawai->divisi,
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
                 'kode_barang'   => $stock->kode_barang,
@@ -92,22 +91,23 @@ class PeminjamanController extends Controller
         if(empty($dataStock->pinjam)){
 
             $request->validate([
-                'nama_peminjam' => 'required',
+                'pegawai_id' => 'required',
             ],[
-                'nama_peminjam.required'   => 'harap isi nama peminjam'
+                'pegawai_id.required'   => 'harap isi nama peminjam'
             ]);
             
             $waktu = new DateTime();
 
             $dataPeminjaman = new Pinjam;
-            $dataPeminjaman->nama_peminjam = $request->input('nama_peminjam');
+            $dataPeminjaman->pegawai_id = $request->pegawai_id;
             $dataPeminjaman->stock_id = Stock::where('kode_barang',$request->kode_barang)->first()->id;
             $dataPeminjaman->tanggal_dipinjam = Carbon::now();
             $dataPeminjaman->waktu = $waktu->format('H:i:s');
             $dataPeminjaman->save();
             if($dataPeminjaman->save()){
-                $log = new HistoryPeminjaman;
-                $log->nama_peminjam = $dataPeminjaman->nama_peminjam;
+                $log = new LogTransaksi;
+                $log->keterangan = "Peminjaman";
+                $log->pegawai_id = $dataPeminjaman->pegawai_id;
                 $log->stock_id = $dataPeminjaman->stock_id;
                 $log->tanggal_dipinjam = Carbon::now();
                 $log->waktu = $dataPeminjaman->waktu;
@@ -136,8 +136,9 @@ class PeminjamanController extends Controller
             $waktu = new DateTime();
             $pinjam = Pinjam::find($dataPeminjaman->pinjam->id);
             if($pinjam->delete()){
-                $logPengembalian = new HistoryPengembalian();
-                $logPengembalian->nama_peminjam = $pinjam->nama_peminjam;
+                $logPengembalian = new LogTransaksi();
+                $logPengembalian->keterangan = "Pengembalian";
+                $logPengembalian->pegawai_id = $pinjam->pegawai_id;
                 $logPengembalian->stock_id = $pinjam->stock_id;
                 $logPengembalian->tanggal_dipinjam = Carbon::now();
                 $logPengembalian->waktu = $waktu->format('H:i:s');

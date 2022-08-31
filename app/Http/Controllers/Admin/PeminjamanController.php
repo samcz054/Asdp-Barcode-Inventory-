@@ -77,7 +77,7 @@ class PeminjamanController extends Controller
             $dataPeminjaman->waktu = $waktu->format('H:i:s');
             $dataPeminjaman->save();
             if ($dataPeminjaman->save()){
-                $logTransaksi = new LogTransaksi();
+                $logTransaksi = new LogTransaksi;
                 $logTransaksi->keterangan = "Peminjaman";
                 $logTransaksi->pegawai_id = $dataPeminjaman->pegawai_id;
                 $logTransaksi->stock_id = $dataPeminjaman->stock_id;
@@ -159,7 +159,7 @@ class PeminjamanController extends Controller
         $dataPeminjaman = Pinjam::find($request->pengembalian_barang_id);
 
         if ($dataPeminjaman->delete()){
-            $logTransaksi = new LogTransaksi();
+            $logTransaksi = new LogTransaksi;
             $logTransaksi->keterangan = "Pengembalian";
             $logTransaksi->pegawai_id = $dataPeminjaman->pegawai_id;
             $logTransaksi->stock_id = $dataPeminjaman->stock_id;

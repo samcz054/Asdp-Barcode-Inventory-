@@ -138,6 +138,7 @@
                                 <th>No</th>
                                 <th>Nama Peminjam</th>
                                 <th>Nama Barang</th>
+                                <th>Model / Type</th>
                                 <th>Nomor Seri</th>
                                 <th>Kode Barang</th>
                                 <th>Tanggal Dipinjam</th>
@@ -150,6 +151,7 @@
                                 <td>{{++$i}}</td>
                                 <td>{{$row->pegawai->nama_lengkap}} - {{$row->pegawai->jabatan}} {{$row->pegawai->divisi}}</td>
                                 <td>{{$row->stock->barang->nama_barang}}</td>
+                                <td>{{$row->stock->barang->model}}</td>
                                 <td>{{$row->stock->nomor_seri}}</td>
                                 <td>{{$row->stock->kode_barang}}</td>
                                 <td>{{tanggal_indonesia($row->tanggal_dipinjam)}} - {{$row->waktu}}</td>

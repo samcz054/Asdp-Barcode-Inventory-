@@ -53,7 +53,7 @@
                     <div class="form-row" style="margin-right: 2cm; margin-left: 2cm;">
                         <div class="col-md-6">
                             <pre><h6>Dipinjam Oleh    : {{$dataPeminjaman->pegawai->nama_lengkap}}</h6></pre>
-                            <pre><h6>Model / Type     : </h6></pre>
+                            <pre><h6>Model / Type     : {{$dataPeminjaman->stock->barang->model}}</h6></pre>
                             <pre><h6>Kode Barang      : {{$dataPeminjaman->stock->kode_barang}}</h6></pre>
                             
                         </div>
