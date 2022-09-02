@@ -106,7 +106,7 @@
                               @foreach ($dataPeminjaman as $i=>$row)
                               <tr>
                                   <td>{{++$i}}</td>
-                                  <td>{{$row->nama_peminjam}}</td>
+                                  <td>{{$row->pegawai->nama_lengkap}} - {{$row->pegawai->jabatan}} {{$row->pegawai->divisi}}</td>
                                   <td>{{$row->stock->barang->nama_barang}}</td>
                                   <td>{{$row->stock->nomor_seri}}</td>
                                   <td>{{$row->stock->kode_barang}}</td>
