@@ -2,7 +2,8 @@
 
 namespace App\Exports;
 
-use App\HistoryPeminjaman;
+
+use App\LogTransaksi;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -19,7 +20,10 @@ class DataPeminjamanExport implements FromCollection, ShouldAutoSize, WithMappin
             'Waktu',
             'Tanggal',
             'Nama Peminjam',
+            'Jabatan',
+            'Divisi',
             'Nama barang',
+            'Model / Type Barang',
             'Nomor Seri',
             'Kode Barang',
         ];
@@ -27,7 +31,7 @@ class DataPeminjamanExport implements FromCollection, ShouldAutoSize, WithMappin
 
     public function collection()
     {
-        return HistoryPeminjaman::with('stock')->get();
+        return LogTransaksi::with('stock','pegawai')->get();
     }
 
     public function map($logPeminjaman): array
@@ -36,8 +40,11 @@ class DataPeminjamanExport implements FromCollection, ShouldAutoSize, WithMappin
             $logPeminjaman->id,
             $logPeminjaman->waktu,
             $logPeminjaman->tanggal_dipinjam,
-            $logPeminjaman->nama_peminjam,
+            $logPeminjaman->pegawai->nama_lengkap,
+            $logPeminjaman->pegawai->jabatan,
+            $logPeminjaman->pegawai->divisi,
             $logPeminjaman->stock->barang->nama_barang,
+            $logPeminjaman->stock->barang->model,
             $logPeminjaman->stock->nomor_seri,
             $logPeminjaman->stock->kode_barang,
         ];

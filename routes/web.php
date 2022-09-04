@@ -71,6 +71,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Export log
     Route::get('file-export-stokBaru', [App\Http\Controllers\Admin\LogController::class, 'fileExportStokBaru'])->name('file-ExportStokBaru');
     Route::get('file-export-peminjaman', [App\Http\Controllers\Admin\LogController::class, 'fileExportPeminjaman'])->name('file-ExportPeminjaman');
-    Route::get('file-export-pengembalian', [App\Http\Controllers\Admin\LogController::class, 'fileExportPengembalian'])->name('file-ExportPengembalian');
 
 });
