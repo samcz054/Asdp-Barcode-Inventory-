@@ -46,7 +46,7 @@ class PeminjamanController extends Controller
         //jika kode barang tidak ada
         if(empty($stock)){
             return response()->json([
-                'error' => 'Barang tidak terdaftar harap hubungi pak oke'
+                'error' => 'Barang tidak terdaftar harap hubungi admin'
             ],404);
         }
 
@@ -56,6 +56,7 @@ class PeminjamanController extends Controller
                 'nama_peminjam' => 'digudang',
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
+                'model_barang'  => $stock->barang->model,
                 'kode_barang'   => $stock->kode_barang,
                 'keterangan'    => $stock->barang->keterangan,
                 'nomor_seri'    => $stock->nomor_seri
@@ -67,6 +68,7 @@ class PeminjamanController extends Controller
                 'nama_peminjam' => $stock->pinjam->pegawai->nama_lengkap." - ".$stock->pinjam->pegawai->jabatan." ".$stock->pinjam->pegawai->divisi,
                 'gambar'        => $stock->barang->gambar,
                 'nama_barang'   => $stock->barang->nama_barang,
+                'model_barang'  => $stock->barang->model,
                 'kode_barang'   => $stock->kode_barang,
                 'keterangan'    => $stock->barang->keterangan,
                 'nomor_seri'    => $stock->nomor_seri
